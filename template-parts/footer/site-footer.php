@@ -16,8 +16,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$avallone_logo_rel  = 'assets/images/avallone-logo-footer.svg';
-$avallone_logo_path = AVALLONE_DIR . '/' . $avallone_logo_rel;
+$avallone_logo_rel = 'assets/images/avallone-logo-footer.svg';
 
 /*
  * Social profiles. No confirmed Avallone Facebook or Instagram URL exists yet,
@@ -40,19 +39,15 @@ $avallone_social_labels = array(
 
 	<div class="container site-footer__grid">
 
-		<?php /* Skipped entirely while it has neither a logo asset nor a social URL, so the grid gets no empty column. */ ?>
-		<?php if ( file_exists( $avallone_logo_path ) || $avallone_socials ) : ?>
 		<div class="site-footer__brand">
 
-			<?php if ( file_exists( $avallone_logo_path ) ) : ?>
-				<img
-					class="site-footer__logo"
-					src="<?php echo esc_url( AVALLONE_URI . '/' . $avallone_logo_rel ); ?>"
-					width="262"
-					height="146"
-					alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"
-				>
-			<?php endif; ?>
+			<img
+				class="site-footer__logo"
+				src="<?php echo esc_url( AVALLONE_URI . '/' . $avallone_logo_rel ); ?>"
+				width="262"
+				height="146"
+				alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"
+			>
 
 			<?php if ( $avallone_socials ) : ?>
 				<ul class="site-footer__social" role="list">
@@ -75,7 +70,6 @@ $avallone_social_labels = array(
 			<?php endif; ?>
 
 		</div>
-		<?php endif; ?>
 
 		<?php if ( has_nav_menu( 'footer_products' ) ) : ?>
 			<nav class="site-footer__col site-footer__col--products" aria-labelledby="footer-products-heading">

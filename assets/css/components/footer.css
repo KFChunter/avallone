@@ -345,13 +345,6 @@
 	.site-footer__contact {
 		grid-column: 9 / span 4;
 	}
-
-	/* Degenerate state: no logo asset and no footer menus assigned leaves
-	   contact as the only column, and columns 1–8 would render as a void.
-	   Pull it back to the left edge so the footer still reads as intentional. */
-	.site-footer__contact:only-child {
-		grid-column: 1 / span 4;
-	}
 }
 
 /* --------------------------------------------------------------------------
