@@ -1,0 +1,213 @@
+/* ==========================================================================
+   FORMS (CVI §12)
+   --------------------------------------------------------------------------
+   Baseline field styling. WooCommerce checkout, account and contact forms all
+   inherit from here, so this layer stays generic — no layout, no per-form
+   rules, nothing tied to a specific page.
+
+   Accessibility note: §12's placeholder colour does not meet WCAG AA against
+   cream (2.03:1). The CVI value is kept as canonical, and the accessible name
+   is carried by the visible <label> below — Work Sans 600 on --color-ink is
+   16.3:1. A placeholder must never be the only cue for a field.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   LABELS
+   -------------------------------------------------------------------------- */
+
+label,
+.form-label {
+	display: block;
+	margin-bottom: var(--space-xs);
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-ink);
+}
+
+/* A label wrapping its own control is an inline choice label, not a field
+   label — it stays body text. */
+label:has(input[type='checkbox']),
+label:has(input[type='radio']),
+.form-label--inline {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-xs);
+	margin-bottom: 0;
+	font-family: var(--font-body);
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: 0;
+	text-transform: none;
+	color: var(--color-text);
+}
+
+/* --------------------------------------------------------------------------
+   FIELDS
+   -------------------------------------------------------------------------- */
+
+input[type='text'],
+input[type='email'],
+input[type='url'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='number'],
+input[type='date'],
+input[type='time'],
+input[type='datetime-local'],
+input[type='month'],
+input[type='week'],
+textarea,
+select {
+	display: block;
+	width: 100%;
+	padding: 14px 16px;
+	border: 1px solid var(--color-input-border);
+	border-radius: var(--radius-button);
+	background-color: var(--color-input-bg);
+	font-family: var(--font-ui);
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	color: var(--color-text);
+	transition:
+		border-color var(--transition-base),
+		box-shadow var(--transition-base);
+}
+
+::placeholder {
+	color: var(--color-input-placeholder);
+	opacity: 1; /* Firefox dims placeholders by default. */
+}
+
+/* --------------------------------------------------------------------------
+   SELECT
+
+   The native arrow is replaced with a chevron matching the CVI's Lucide icon
+   language (§11): 1.5px stroke, round caps. Inlined as a data URI so the
+   control needs no markup change and no HTTP request.
+
+   The stroke is the only hardcoded colour in the theme: %235B403C is
+   --color-text. An SVG data URI is parsed outside the CSS cascade, so it
+   cannot reference a custom property. If --color-text changes, change it here
+   too.
+   -------------------------------------------------------------------------- */
+
+select {
+	appearance: none;
+	padding-right: 44px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235B403C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 16px center;
+	background-size: 20px 20px;
+	cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   FOCUS
+
+   §12 specifies `outline: none` plus a border colour change and a soft ring.
+   The outline is set transparent rather than removed: Windows High Contrast
+   Mode paints outlines but discards box-shadows, so `none` would leave those
+   users with no focus indicator at all. Appearance is unchanged.
+   -------------------------------------------------------------------------- */
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 3px var(--color-input-focus-ring);
+	outline: 2px solid transparent;
+	outline-offset: 0;
+}
+
+@media (forced-colors: active) {
+
+	input:focus-visible,
+	textarea:focus-visible,
+	select:focus-visible {
+		outline-color: Highlight;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   ERROR
+   -------------------------------------------------------------------------- */
+
+input[aria-invalid='true'],
+textarea[aria-invalid='true'],
+select[aria-invalid='true'],
+.is-error input,
+.is-error textarea,
+.is-error select {
+	border-color: var(--color-error);
+	color: var(--color-error);
+}
+
+.form-error {
+	margin-top: var(--space-xs);
+	font-family: var(--font-meta);
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 16px;
+	color: var(--color-error);
+}
+
+/* --------------------------------------------------------------------------
+   DISABLED / READONLY
+
+   The CVI specifies a disabled state for buttons (§6.2) but not for fields;
+   the same treatment is applied so controls read consistently.
+   -------------------------------------------------------------------------- */
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+input:read-only:not([type='checkbox']):not([type='radio']),
+textarea:read-only {
+	background-color: var(--color-surface-light);
+}
+
+/* --------------------------------------------------------------------------
+   CHOICE CONTROLS
+
+   Left native in this phase — accessible and keyboard-complete out of the box,
+   and the CVI does not specify a custom checkbox or radio design. Only the
+   accent colour is aligned to the brand.
+   -------------------------------------------------------------------------- */
+
+input[type='checkbox'],
+input[type='radio'] {
+	accent-color: var(--color-primary);
+	cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   FIELDSET
+   -------------------------------------------------------------------------- */
+
+fieldset {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+legend {
+	padding: 0;
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 20px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--color-ink);
+}

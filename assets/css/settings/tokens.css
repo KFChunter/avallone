@@ -1,0 +1,190 @@
+/* ==========================================================================
+   AVALLONE — DESIGN TOKENS
+   --------------------------------------------------------------------------
+   Single source of truth for every reusable design value in the theme.
+   No other stylesheet may define a custom property.
+
+   Values are transcribed verbatim from the Avallone CVI. The CVI section each
+   group comes from is noted so any value can be traced back to the source.
+   Tokens marked "derived" are stated in a later CVI section but missing from
+   the palette in §2; they are recorded here rather than hardcoded downstream.
+
+   --------------------------------------------------------------------------
+   BREAKPOINTS (CVI §17 / §18)
+
+     375px    small mobile      (design reference width)
+     768px    tablet
+     1024px   desktop
+     1280px   large desktop     (design reference width)
+     1440px   max content width
+
+   These are written as literals in @media rules throughout the theme. CSS
+   custom properties are not valid inside a media query condition, and this
+   project intentionally has no build step, so @custom-media is unavailable.
+   ========================================================================== */
+
+:root {
+
+	/* ----------------------------------------------------------------------
+	   COLOUR — BRAND (CVI §2)
+	   ---------------------------------------------------------------------- */
+
+	--color-primary: #A20007;        /* Primary CTA red — buttons, links, accents */
+	--color-primary-dark: #770003;   /* Hover/pressed, secondary buttons, active nav */
+	--color-logo-red: #D82027;       /* Logo graphic element only */
+
+	/* ----------------------------------------------------------------------
+	   COLOUR — NEUTRALS (CVI §2)
+	   ---------------------------------------------------------------------- */
+
+	--color-ink: #1B1C1C;            /* Near-black — headings, dark buttons */
+	--color-text: #5B403C;           /* Warm dark brown — default body text */
+	--color-rose: #E4BEB8;           /* Decorative borders, dividers, pink accents */
+	--color-cream: #FCF9F8;          /* Lightest background — page background */
+	--color-surface-light: #F6F3F2;  /* Utility nav bar, light sections */
+	--color-surface-mid: #E5E2E1;    /* Footer background, light gray sections */
+
+	/* ----------------------------------------------------------------------
+	   COLOUR — LOGO (CVI §2)
+	   ---------------------------------------------------------------------- */
+
+	--color-logo-black-1: #13171A;   /* Primary logo letterforms */
+	--color-logo-black-2: #231F20;   /* Secondary logo letterforms */
+
+	/* ----------------------------------------------------------------------
+	   COLOUR — SEMANTIC (CVI §2)
+	   ---------------------------------------------------------------------- */
+
+	--color-border: rgba(228, 190, 184, 0.3);        /* Section dividers */
+	--color-border-nav: rgba(228, 190, 184, 0.1);    /* Nav border-bottom */
+	--color-border-footer: rgba(228, 190, 184, 0.2); /* Footer border-top */
+
+	--color-warning-text: #770003;   /* Alcohol warning text */
+
+	/* ----------------------------------------------------------------------
+	   COLOUR — DERIVED
+	   Stated in CVI §6.1 / §6.2 / §12 but absent from the §2 palette.
+	   ---------------------------------------------------------------------- */
+
+	--color-primary-darkest: #5a0002;                /* §6.1 dark-secondary hover */
+	--color-primary-wash: rgba(162, 0, 7, 0.05);     /* §6.1 outlined button hover */
+
+	--color-on-dark: var(--color-cream);             /* §6.1 label on primary/ink buttons */
+	--color-on-dark-pure: #FFFFFF;                   /* §6.1 dark-secondary specifies pure white */
+
+	/* Form fields — §12 */
+	--color-input-bg: var(--color-cream);
+	--color-input-border: var(--color-rose);
+	--color-input-placeholder: rgba(91, 64, 60, 0.4);
+	--color-input-focus-ring: rgba(162, 0, 7, 0.1);
+	--color-error: var(--color-primary);
+
+	/* Focus ring — §6.2 */
+	--focus-ring-color: var(--color-primary);
+	--focus-ring-width: 2px;
+	--focus-ring-offset: 3px;
+
+	/* ----------------------------------------------------------------------
+	   TYPOGRAPHY — FAMILIES (CVI §3.1)
+
+	   Playfair Display   → display headings (H1 hero), editorial pull quotes
+	   Libre Caslon Text  → H2, H3, H4, product section headings
+	   Work Sans          → body, navigation, buttons, UI labels, H5/H6
+	   Inter              → utility nav, footer, small text, metadata, legal
+
+	   Type sizes are deliberately NOT tokenised. The CVI expresses typography
+	   as complete .type-* classes rather than a numeric scale, so each size,
+	   line-height and tracking is declared once inside its class in
+	   base/typography.css — that class IS the single definition.
+	   ---------------------------------------------------------------------- */
+
+	--font-display: 'Playfair Display', Georgia, serif;
+	--font-heading: 'Libre Caslon Text', Georgia, serif;
+	--font-ui: 'Work Sans', sans-serif;
+	--font-meta: 'Inter', sans-serif;
+
+	/* The face inherited by <body>. Alias, not a second definition.
+	   Resolved to Work Sans: §3.2's .type-body is Work Sans, and forms (§12),
+	   buttons (§6), product cards (§13) and navigation (§7) all specify it.
+	   §3.1's role table assigns "Body text" to Inter; Inter is therefore kept
+	   for utility nav, footer, small/meta and legal text. Change this one line
+	   to flip the default. */
+	--font-body: var(--font-ui);
+
+	/* ----------------------------------------------------------------------
+	   SPACING (CVI §4)
+	   ---------------------------------------------------------------------- */
+
+	--space-xs: 8px;
+	--space-sm: 16px;
+	--space-md: 24px;
+	--space-lg: 48px;
+	--space-xl: 64px;
+	--space-2xl: 80px;
+	--space-3xl: 120px;
+
+	/* ----------------------------------------------------------------------
+	   LAYOUT (CVI §4)
+	   ---------------------------------------------------------------------- */
+
+	--max-width: 1440px;
+	--grid-columns: 12;
+	--grid-gap: 80px;
+
+	/* Page gutter — §4 gives the desktop value, §18 the tablet and mobile
+	   values. Each is defined exactly once; --page-gutter below is the
+	   resolver that layout.css consumes. */
+	--page-gutter-mobile: 24px;
+	--page-gutter-tablet: 40px;
+	--page-gutter-desktop: 64px;
+
+	/* Mobile-first default. Reassigned (not redefined) at the breakpoints. */
+	--page-gutter: var(--page-gutter-mobile);
+
+	/* ----------------------------------------------------------------------
+	   BORDER RADIUS (CVI §5)
+	   ---------------------------------------------------------------------- */
+
+	--radius-sm: 8px;         /* Small chips, tags */
+	--radius-button: 12px;    /* Universal button, card and input radius */
+	--radius-lg: 16px;        /* Larger cards */
+	--radius-pill: 9999px;    /* Language toggle, badges, cart count */
+
+	/* ----------------------------------------------------------------------
+	   SHADOWS & ELEVATION (CVI §15)
+	   ---------------------------------------------------------------------- */
+
+	--shadow-sm: 0px 1px 3px rgba(0, 0, 0, 0.06);
+	--shadow-md:
+		0px 4px 6px -1px rgba(0, 0, 0, 0.10),
+		0px 2px 4px -2px rgba(0, 0, 0, 0.10);
+	--shadow-lg: 0px 8px 24px rgba(0, 0, 0, 0.12);
+	--shadow-xl: 0px 16px 48px rgba(0, 0, 0, 0.16);
+	--shadow-card-origin: 0px 4px 12px rgba(0, 0, 0, 0.08);
+
+	/* ----------------------------------------------------------------------
+	   TRANSITIONS & MOTION (CVI §16)
+	   ---------------------------------------------------------------------- */
+
+	--transition-fast: 150ms ease;
+	--transition-base: 200ms ease;
+	--transition-slow: 350ms ease;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE PAGE GUTTER (CVI §18)
+   Reassigns the --page-gutter resolver. The underlying values stay defined
+   once each in :root above.
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 768px) {
+	:root {
+		--page-gutter: var(--page-gutter-tablet);
+	}
+}
+
+@media (min-width: 1024px) {
+	:root {
+		--page-gutter: var(--page-gutter-desktop);
+	}
+}

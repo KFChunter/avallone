@@ -1,0 +1,222 @@
+/* ==========================================================================
+   TYPOGRAPHY (CVI §3)
+   --------------------------------------------------------------------------
+   The CVI defines typography as a set of complete named styles rather than a
+   numeric scale, so each style is declared exactly once here. This file is the
+   single definition of every font-size, line-height and letter-spacing in the
+   theme — components reference a .type-* class or an element default instead
+   of re-declaring type.
+
+   HTML elements are grouped with the .type-* class they map to, so a style is
+   never written twice.
+
+   Font families come from settings/tokens.css. <body> inherits --font-body,
+   which resolves to Work Sans (see the token comment for the reasoning).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   ROOT TEXT STYLE
+   Matches .type-body (§3.2). base/global.css owns the page background.
+   -------------------------------------------------------------------------- */
+
+body {
+	font-family: var(--font-body);
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: 0;
+	color: var(--color-text);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* --------------------------------------------------------------------------
+   DISPLAY — Playfair Display (§3.2)
+   -------------------------------------------------------------------------- */
+
+h1,
+.type-display {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-style: normal;
+	font-size: 44px;
+	line-height: 1.1;
+	letter-spacing: -0.022em;
+	color: var(--color-ink);
+}
+
+.type-display-italic {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-style: italic;
+	font-size: 40px;
+	line-height: 1.1;
+	letter-spacing: -0.022em;
+	color: var(--color-ink);
+}
+
+/* --------------------------------------------------------------------------
+   HEADINGS — Libre Caslon Text (§3.2)
+
+   The 1.58 line-height on H2/H3 is the CVI value, transcribed as specified
+   (≈69px at 44px, ≈51px at 32px). H1 and H2 are both 44px by design; they are
+   distinguished by family and weight, not size.
+   -------------------------------------------------------------------------- */
+
+h2,
+.type-h2 {
+	font-family: var(--font-heading);
+	font-weight: 400;
+	font-style: normal;
+	font-size: 44px;
+	line-height: 1.58;
+	letter-spacing: 0;
+	color: var(--color-ink);
+}
+
+h3,
+.type-h3 {
+	font-family: var(--font-heading);
+	font-weight: 400;
+	font-style: italic;
+	font-size: 32px;
+	line-height: 1.58;
+	letter-spacing: 0;
+	color: var(--color-ink);
+}
+
+h4,
+.type-h4 {
+	font-family: var(--font-heading);
+	font-weight: 400;
+	font-style: normal;
+	font-size: 24px;
+	line-height: 1.5;
+	letter-spacing: 0;
+	color: var(--color-ink);
+}
+
+/* --------------------------------------------------------------------------
+   SECTION HEADING — Work Sans (§3.2)
+
+   H6 is the one element the CVI does not specify. §3.1 assigns "H5/H6" to Work
+   Sans, so it inherits the H5 treatment until a design defines it otherwise.
+   -------------------------------------------------------------------------- */
+
+h5,
+h6,
+.type-h5 {
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 20px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--color-ink);
+}
+
+/* --------------------------------------------------------------------------
+   NAVIGATION / PRODUCT LABEL — Work Sans (§3.2)
+   -------------------------------------------------------------------------- */
+
+.type-nav-link {
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 20px;
+	letter-spacing: 0.05em;
+	text-transform: none;
+	color: var(--color-text);
+}
+
+/* --------------------------------------------------------------------------
+   BODY (§3.2)
+   -------------------------------------------------------------------------- */
+
+/* Editorial / blog body — Libre Caslon Text. */
+.type-body-editorial {
+	font-family: var(--font-heading);
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 1.6;
+	letter-spacing: 0;
+	color: var(--color-text);
+}
+
+/* Work Sans body. Identical to the <body> default; kept as an explicit class
+   so a component can opt back into it after a local override. */
+.type-body {
+	font-family: var(--font-ui);
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: 0;
+	color: var(--color-text);
+}
+
+/* Inter body — footer links, utility nav and other Inter surfaces (§3.1). */
+.type-body-inter {
+	font-family: var(--font-meta);
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: 0;
+	color: var(--color-text);
+}
+
+/* --------------------------------------------------------------------------
+   SMALL / META — Inter (§3.2)
+   -------------------------------------------------------------------------- */
+
+small,
+.type-small {
+	font-family: var(--font-meta);
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0;
+	color: var(--color-text);
+}
+
+/* Legal and alcohol warning text (§3.2, §9). */
+.type-warning {
+	font-family: var(--font-meta);
+	font-weight: 600;
+	font-style: italic;
+	font-size: 12px;
+	line-height: 16px;
+	color: var(--color-warning-text);
+}
+
+/* --------------------------------------------------------------------------
+   BUTTON TEXT — Work Sans (§3.2)
+   Consumed by components/buttons.css.
+   -------------------------------------------------------------------------- */
+
+.type-button {
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: 0;
+	text-transform: uppercase;
+	color: inherit;
+}
+
+.type-button-small {
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0;
+	text-transform: uppercase;
+}
+
+.type-button-tracked {
+	font-family: var(--font-ui);
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}

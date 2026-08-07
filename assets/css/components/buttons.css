@@ -1,0 +1,194 @@
+/* ==========================================================================
+   BUTTONS (CVI §6)
+   --------------------------------------------------------------------------
+   Colour and size are separate concerns, so every button the CVI specifies is
+   expressible by combining one colour variant with one size modifier:
+
+     PRIMARY large CTA        .btn .btn--primary
+     PRIMARY with icon        .btn .btn--primary .btn--icon
+     PRIMARY full width       .btn .btn--primary .btn--full
+     PRIMARY small badge      .btn .btn--primary .btn--small
+     OUTLINED / ghost         .btn .btn--outline
+     DARK alternative CTA     .btn .btn--dark
+     DARK SECONDARY compact   .btn .btn--secondary
+     DARK SECONDARY form      .btn .btn--secondary .btn--large
+
+   A note on the outlined button: §6.1 specifies padding 25px 81px against the
+   primary's 24px 80px. That extra pixel is border compensation, so the base
+   here carries `border: 1px solid transparent` and a single 24px 80px padding.
+   The rendered box is identical for both variants, without a magic number.
+
+   Buttons are <button> or <a>. Disabled state covers :disabled for buttons and
+   [aria-disabled="true"] for links, which cannot be truly disabled.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   BASE
+   Geometry and type from §6.1 PRIMARY; type matches .type-button (§3.2).
+   -------------------------------------------------------------------------- */
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-sm);
+	padding: 24px 80px;
+	border: 1px solid transparent;
+	border-radius: var(--radius-button);
+	background-color: transparent;
+	color: inherit;
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: 0;
+	text-align: center;
+	text-transform: uppercase;
+	text-decoration: none;
+	cursor: pointer;
+	transition:
+		color var(--transition-base),
+		background-color var(--transition-base),
+		border-color var(--transition-base),
+		box-shadow var(--transition-base),
+		transform var(--transition-base);
+}
+
+/* Icons inherit the label colour and keep the CVI's 1.5px stroke weight (§11). */
+.btn svg {
+	flex-shrink: 0;
+	stroke: currentColor;
+	stroke-width: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   COLOUR VARIANTS (§6.1)
+   -------------------------------------------------------------------------- */
+
+.btn--primary {
+	background-color: var(--color-primary);
+	color: var(--color-on-dark);
+	box-shadow: var(--shadow-md);
+}
+
+.btn--primary:not(:disabled):not([aria-disabled='true']):hover {
+	background-color: var(--color-primary-dark);
+	color: var(--color-on-dark);
+}
+
+.btn--outline {
+	border-color: var(--color-primary);
+	color: var(--color-primary);
+}
+
+.btn--outline:not(:disabled):not([aria-disabled='true']):hover {
+	background-color: var(--color-primary-wash);
+	color: var(--color-primary);
+}
+
+/* §6.1 DARK — the one variant whose label is sentence case, not uppercase. */
+.btn--dark {
+	padding: 24px 32px;
+	background-color: var(--color-ink);
+	color: var(--color-on-dark);
+	font-weight: 400;
+	text-transform: none;
+}
+
+.btn--dark:not(:disabled):not([aria-disabled='true']):hover {
+	background-color: var(--color-text);
+	color: var(--color-on-dark);
+}
+
+/* §6.1 DARK SECONDARY — contact, form and auth buttons. Defaults to the
+   compact size; add .btn--large for the 48px/80px form button. */
+.btn--secondary {
+	padding: 12px 24px;
+	background-color: var(--color-primary-dark);
+	color: var(--color-on-dark-pure);
+	font-weight: 400;
+	letter-spacing: 0.1em;
+}
+
+.btn--secondary:not(:disabled):not([aria-disabled='true']):hover {
+	background-color: var(--color-primary-darkest);
+	color: var(--color-on-dark-pure);
+}
+
+/* --------------------------------------------------------------------------
+   SIZE MODIFIERS (§6.1)
+   Declared after the colour variants so a size always wins over a variant's
+   own padding.
+   -------------------------------------------------------------------------- */
+
+/* Icon + text: the icon takes horizontal space, so the sides tighten. */
+.btn--icon {
+	padding: 24px 32px;
+}
+
+.btn--small {
+	gap: 4px;
+	padding: 8px 16px;
+	font-size: 12px;
+	line-height: 16px;
+}
+
+.btn--compact {
+	padding: 12px 24px;
+}
+
+.btn--large {
+	padding: 48px 80px;
+}
+
+/* Doubled class so this survives the width reset in the breakpoint below
+   without needing a second declaration inside the media query. */
+.btn.btn--full {
+	width: 100%;
+	height: 64px;
+	gap: 14px;
+	padding: 0 32px;
+}
+
+/* --------------------------------------------------------------------------
+   STATES (§6.2)
+   The focus ring is inherited from the global :focus-visible rule in
+   base/global.css, which already implements §6.2's 2px/3px specification.
+   -------------------------------------------------------------------------- */
+
+.btn:active {
+	transform: scale(0.98);
+}
+
+.btn:disabled,
+.btn[aria-disabled='true'] {
+	opacity: 0.4;
+	cursor: not-allowed;
+	transform: none;
+	box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE (§18)
+
+   "Buttons: full-width on mobile". Mobile-first, so full width is the base and
+   is released at the tablet breakpoint. Small and compact buttons are inline
+   chips and badges — stretching those across the viewport would be wrong, so
+   they keep their intrinsic width at every size.
+   -------------------------------------------------------------------------- */
+
+.btn {
+	width: 100%;
+}
+
+.btn--small,
+.btn--compact {
+	width: auto;
+}
+
+@media (min-width: 768px) {
+
+	.btn {
+		width: auto;
+	}
+}

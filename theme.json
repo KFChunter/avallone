@@ -1,0 +1,97 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"color": {
+			"custom": false,
+			"customDuotone": false,
+			"customGradient": false,
+			"defaultDuotone": false,
+			"defaultGradients": false,
+			"defaultPalette": false,
+			"palette": [
+				{
+					"slug": "primary",
+					"name": "Primary red",
+					"color": "var(--color-primary)"
+				},
+				{
+					"slug": "primary-dark",
+					"name": "Primary red dark",
+					"color": "var(--color-primary-dark)"
+				},
+				{
+					"slug": "ink",
+					"name": "Ink",
+					"color": "var(--color-ink)"
+				},
+				{
+					"slug": "text",
+					"name": "Body brown",
+					"color": "var(--color-text)"
+				},
+				{
+					"slug": "rose",
+					"name": "Rose",
+					"color": "var(--color-rose)"
+				},
+				{
+					"slug": "cream",
+					"name": "Cream",
+					"color": "var(--color-cream)"
+				},
+				{
+					"slug": "surface-light",
+					"name": "Surface light",
+					"color": "var(--color-surface-light)"
+				},
+				{
+					"slug": "surface-mid",
+					"name": "Surface mid",
+					"color": "var(--color-surface-mid)"
+				}
+			]
+		},
+		"typography": {
+			"fontFamilies": [
+				{
+					"slug": "display",
+					"name": "Display — Playfair Display",
+					"fontFamily": "var(--font-display)"
+				},
+				{
+					"slug": "heading",
+					"name": "Heading — Libre Caslon Text",
+					"fontFamily": "var(--font-heading)"
+				},
+				{
+					"slug": "ui",
+					"name": "UI & body — Work Sans",
+					"fontFamily": "var(--font-ui)"
+				},
+				{
+					"slug": "meta",
+					"name": "Meta & footer — Inter",
+					"fontFamily": "var(--font-meta)"
+				}
+			]
+		},
+		"spacing": {
+			"customSpacingSize": false,
+			"units": [ "px", "rem", "%" ],
+			"spacingSizes": [
+				{ "slug": "xs", "name": "XS", "size": "var(--space-xs)" },
+				{ "slug": "sm", "name": "SM", "size": "var(--space-sm)" },
+				{ "slug": "md", "name": "MD", "size": "var(--space-md)" },
+				{ "slug": "lg", "name": "LG", "size": "var(--space-lg)" },
+				{ "slug": "xl", "name": "XL", "size": "var(--space-xl)" },
+				{ "slug": "2xl", "name": "2XL", "size": "var(--space-2xl)" },
+				{ "slug": "3xl", "name": "3XL", "size": "var(--space-3xl)" }
+			]
+		},
+		"layout": {
+			"contentSize": "1312px",
+			"wideSize": "1440px"
+		}
+	}
+}

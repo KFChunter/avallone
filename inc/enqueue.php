@@ -1,0 +1,140 @@
+<?php
+/**
+ * Asset loading.
+ *
+ * The theme has no build step. Instead of concatenating, each CSS layer is
+ * registered as its own handle with the previous layer as its dependency, so
+ * WordPress — not luck or source order — enforces the cascade.
+ *
+ * @package Avallone
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * The theme's CSS layers, in cascade order.
+ *
+ * This is the single list of stylesheets. It is consumed by both the front-end
+ * enqueue below and add_editor_style() in inc/setup.php. Component stylesheets
+ * are appended here as components are built.
+ *
+ * The WooCommerce layer is deliberately absent: it is conditional and is
+ * enqueued by inc/woocommerce.php only on shop pages.
+ *
+ * @return array<string, string> Handle => path relative to the theme root.
+ */
+function avallone_style_layers() {
+	return array(
+		'avallone-tokens'     => 'assets/css/settings/tokens.css',
+		'avallone-reset'      => 'assets/css/base/reset.css',
+		'avallone-typography' => 'assets/css/base/typography.css',
+		'avallone-global'     => 'assets/css/base/global.css',
+		'avallone-layout'     => 'assets/css/layout/layout.css',
+		'avallone-buttons'    => 'assets/css/components/buttons.css',
+		'avallone-forms'      => 'assets/css/components/forms.css',
+	);
+}
+
+/**
+ * Cache-busting version for a theme asset.
+ *
+ * Uses the file's modification time so each file busts independently — the
+ * benefit a build step would otherwise provide, without the build step.
+ *
+ * @param string $relative_path Path relative to the theme root.
+ * @return string
+ */
+function avallone_asset_version( $relative_path ) {
+	$file = AVALLONE_DIR . '/' . $relative_path;
+
+	if ( file_exists( $file ) ) {
+		return (string) filemtime( $file );
+	}
+
+	return AVALLONE_VERSION;
+}
+
+/**
+ * The Google Fonts stylesheet URL for the four CVI families.
+ *
+ * Weights and styles are exactly those the CVI requires (§3.1). Verified
+ * against the CSS2 API: returns all four families across their subsets.
+ *
+ * @return string
+ */
+function avallone_google_fonts_url() {
+	return 'https://fonts.googleapis.com/css2'
+		. '?family=Playfair+Display:ital,wght@0,700;1,400;1,700'
+		. '&family=Libre+Caslon+Text:ital,wght@0,400;1,400'
+		. '&family=Work+Sans:wght@400;500;600;700'
+		. '&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,600'
+		. '&display=swap';
+}
+
+/**
+ * Enqueue front-end styles.
+ *
+ * @return void
+ */
+function avallone_enqueue_styles() {
+
+	// Fonts first, so the type layers resolve against loaded faces.
+	// A null version keeps WordPress from appending ?ver= to a third-party URL.
+	wp_enqueue_style( 'avallone-fonts', avallone_google_fonts_url(), array(), null );
+
+	$previous = 'avallone-fonts';
+
+	foreach ( avallone_style_layers() as $handle => $relative_path ) {
+		wp_enqueue_style(
+			$handle,
+			AVALLONE_URI . '/' . $relative_path,
+			array( $previous ),
+			avallone_asset_version( $relative_path )
+		);
+
+		$previous = $handle;
+	}
+}
+add_action( 'wp_enqueue_scripts', 'avallone_enqueue_styles' );
+
+/**
+ * Load the brand fonts inside the block editor.
+ *
+ * The editor canvas is iframed, so styles must be enqueued on
+ * enqueue_block_assets to reach it. That hook also fires on the front end,
+ * where avallone_enqueue_styles() already handles fonts — hence the is_admin()
+ * guard.
+ *
+ * @return void
+ */
+function avallone_enqueue_editor_fonts() {
+	if ( ! is_admin() ) {
+		return;
+	}
+
+	wp_enqueue_style( 'avallone-fonts', avallone_google_fonts_url(), array(), null );
+}
+add_action( 'enqueue_block_assets', 'avallone_enqueue_editor_fonts' );
+
+/**
+ * Preconnect to the Google Fonts file host.
+ *
+ * WordPress already emits a dns-prefetch for fonts.googleapis.com. The font
+ * files themselves come from fonts.gstatic.com, so without this hint they wait
+ * on a second connection handshake.
+ *
+ * @param string[] $urls          URLs to print for the given relation.
+ * @param string   $relation_type The relation type being printed.
+ * @return array
+ */
+function avallone_resource_hints( $urls, $relation_type ) {
+	if ( 'preconnect' === $relation_type && wp_style_is( 'avallone-fonts', 'enqueued' ) ) {
+		$urls[] = array(
+			'href'        => 'https://fonts.gstatic.com',
+			'crossorigin' => 'anonymous',
+		);
+	}
+
+	return $urls;
+}
+add_filter( 'wp_resource_hints', 'avallone_resource_hints', 10, 2 );

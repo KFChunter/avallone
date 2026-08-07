@@ -1,0 +1,133 @@
+/* ==========================================================================
+   WOOCOMMERCE — COMPATIBILITY LAYER
+   --------------------------------------------------------------------------
+   Loaded only on shop pages, by inc/woocommerce.php.
+
+   SCOPE OF THIS FILE IN PHASE 1
+   Make WooCommerce's own output speak the Avallone design language — brand
+   colours, the CVI type stack and the 12px radius — and correct the handful of
+   places where WooCommerce's stylesheet overrides the theme's baseline.
+
+   It deliberately sets no geometry, no layout and no spacing. Padding, grid,
+   card structure and page composition arrive with the shop components in a
+   later phase, built from Figma.
+
+   WooCommerce's own stylesheets stay enqueued. This file is registered as
+   depending on them, so it lands last in the cascade by dependency order —
+   which is why nothing here needs !important.
+
+   NOTE — cart and checkout: this installation uses the block-based Cart and
+   Checkout (wp:woocommerce/cart). Those render as .wc-block-components-*
+   React components, not classic templates, and are not touched here. They get
+   their own layer when that phase is designed.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   BUTTONS
+
+   Mapped onto the CVI button language (§6): default buttons take the outlined
+   treatment, and WooCommerce's "alt" buttons — add to cart, place order, the
+   primary action on a page — take the filled primary.
+   -------------------------------------------------------------------------- */
+
+.woocommerce #respond input#submit,
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button {
+	border: 1px solid var(--color-primary);
+	border-radius: var(--radius-button);
+	background-color: transparent;
+	color: var(--color-primary);
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: 0;
+	text-transform: uppercase;
+	text-decoration: none;
+	transition:
+		color var(--transition-base),
+		background-color var(--transition-base),
+		border-color var(--transition-base),
+		box-shadow var(--transition-base);
+}
+
+.woocommerce #respond input#submit:hover,
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce input.button:hover {
+	background-color: var(--color-primary-wash);
+	color: var(--color-primary);
+}
+
+.woocommerce #respond input#submit.alt,
+.woocommerce a.button.alt,
+.woocommerce button.button.alt,
+.woocommerce input.button.alt {
+	border-color: var(--color-primary);
+	background-color: var(--color-primary);
+	color: var(--color-on-dark);
+	box-shadow: var(--shadow-md);
+}
+
+.woocommerce #respond input#submit.alt:hover,
+.woocommerce a.button.alt:hover,
+.woocommerce button.button.alt:hover,
+.woocommerce input.button.alt:hover {
+	border-color: var(--color-primary-dark);
+	background-color: var(--color-primary-dark);
+	color: var(--color-on-dark);
+}
+
+.woocommerce #respond input#submit.disabled,
+.woocommerce a.button.disabled,
+.woocommerce button.button.disabled,
+.woocommerce button.button:disabled,
+.woocommerce input.button.disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   FORM FIELDS
+
+   The theme's baseline in components/forms.css already covers WooCommerce's
+   inputs — they are standard input types. Only the three properties
+   WooCommerce's own stylesheet overrides at a higher specificity are restored
+   here.
+   -------------------------------------------------------------------------- */
+
+.woocommerce form .form-row input.input-text,
+.woocommerce form .form-row textarea,
+.woocommerce form .form-row select {
+	line-height: 24px;
+}
+
+.woocommerce form .form-row label {
+	line-height: 16px;
+}
+
+/* WooCommerce sets `outline: 0` on form rows. The visible ring here is the
+   box-shadow from components/forms.css; this restores a transparent outline so
+   Windows High Contrast Mode, which discards box-shadows, still shows focus. */
+.woocommerce form .form-row input.input-text:focus-visible,
+.woocommerce form .form-row textarea:focus-visible,
+.woocommerce form .form-row select:focus-visible {
+	outline: 2px solid transparent;
+	outline-offset: 0;
+}
+
+@media (forced-colors: active) {
+
+	.woocommerce form .form-row input.input-text:focus-visible,
+	.woocommerce form .form-row textarea:focus-visible,
+	.woocommerce form .form-row select:focus-visible {
+		outline-color: Highlight;
+	}
+}
+
+/* WooCommerce marks invalid fields with a class rather than aria-invalid. */
+.woocommerce form .form-row.woocommerce-invalid input.input-text,
+.woocommerce form .form-row.woocommerce-invalid select {
+	border-color: var(--color-error);
+}

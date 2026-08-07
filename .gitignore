@@ -1,0 +1,26 @@
+# Operating system
+.DS_Store
+._*
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+
+# Tooling
+.claude/
+node_modules/
+vendor/
+
+# Logs and local artefacts
+*.log
+*.sql
+*.zip
+*.tar.gz
+
+# NOTE: acf-json/ is intentionally NOT ignored.
+# ACF field group definitions are part of the source and must be versioned.

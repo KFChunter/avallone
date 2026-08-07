@@ -1,0 +1,24 @@
+/*
+Theme Name: Avallone
+Theme URI: https://avallone.ee
+Author: MarketingSharks
+Description: Custom WordPress theme for Avallone — premium wine & spirits retail, established 1994. A classic PHP theme with block editor support, ACF PRO driven components and WooCommerce.
+Version: 0.1.0
+Requires at least: 6.5
+Tested up to: 7.0
+Requires PHP: 8.1
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: avallone
+Domain Path: /languages
+*/
+
+/*
+ * This file exists only to declare the theme to WordPress.
+ *
+ * It is intentionally NOT enqueued and contains no rules. Every style lives in
+ * assets/css/, loaded as an explicitly ordered dependency chain by
+ * inc/enqueue.php — see avallone_style_layers().
+ *
+ * Design tokens: assets/css/settings/tokens.css (single source of truth).
+ */

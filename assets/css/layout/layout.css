@@ -1,0 +1,36 @@
+/* ==========================================================================
+   LAYOUT (CVI §4)
+   --------------------------------------------------------------------------
+   The global layout primitives. Only what the CVI actually defines lives here;
+   section-specific layout belongs to its component.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   CONTAINER
+
+   The horizontal padding resolves through --page-gutter, which steps
+   24px → 40px → 64px across the CVI §18 breakpoints. The gutter is inside the
+   max-width, matching the CVI's header/footer spec (§7.2, §9): 1440px wide with
+   64px padding, giving a 1312px content area on desktop.
+   -------------------------------------------------------------------------- */
+
+.container {
+	width: 100%;
+	max-width: var(--max-width);
+	margin-inline: auto;
+	padding-inline: var(--page-gutter);
+}
+
+/* --------------------------------------------------------------------------
+   12-COLUMN GRID
+
+   Transcribed from CVI §4. Column spans are a component concern — a component
+   places its children with grid-column and decides how they reflow, so no
+   speculative .col-* helpers are defined here.
+   -------------------------------------------------------------------------- */
+
+.grid-12 {
+	display: grid;
+	grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+	column-gap: var(--grid-gap);
+}

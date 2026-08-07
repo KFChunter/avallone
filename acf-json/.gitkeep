@@ -1,0 +1,7 @@
+ACF PRO writes field group definitions into this directory (see inc/acf.php).
+
+It must exist and be writable before the first field group is saved, otherwise
+ACF silently falls back to keeping definitions in the database only.
+
+This placeholder exists because Git cannot track an empty directory. Delete it
+once the first field group has been committed.

@@ -1,0 +1,100 @@
+/* ==========================================================================
+   RESET
+   --------------------------------------------------------------------------
+   A small, deliberate reset. Not normalize.css — the theme has no build step
+   and no third-party CSS dependencies.
+
+   Element appearance (colour, font, background) is NOT set here. That belongs
+   to base/typography.css and base/global.css.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+	-moz-tab-size: 4;
+	tab-size: 4;
+}
+
+/* Anchored targets should not land underneath a sticky header (CVI §8). */
+:target {
+	scroll-margin-block: var(--space-3xl);
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd {
+	margin: 0;
+}
+
+ul[role='list'],
+ol[role='list'] {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* Media behaves as a block and never overflows its container. */
+img,
+picture,
+video,
+canvas,
+svg,
+iframe {
+	display: block;
+	max-width: 100%;
+}
+
+img,
+video {
+	height: auto;
+}
+
+/* Form controls do not inherit typography by default. */
+input,
+button,
+textarea,
+select {
+	font: inherit;
+	color: inherit;
+}
+
+textarea {
+	resize: vertical;
+}
+
+button {
+	background: none;
+	border: none;
+	padding: 0;
+}
+
+/* Avoid long unbroken strings forcing horizontal page scroll. */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
