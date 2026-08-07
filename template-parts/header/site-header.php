@@ -28,27 +28,45 @@ $avallone_account_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page
 
 <header id="site-header" class="site-header" data-site-header>
 
-	<?php if ( $avallone_has_utility ) : ?>
-		<div class="site-header__utility">
-			<div class="container site-header__utility-inner">
-				<nav class="site-header__utility-nav" aria-label="<?php esc_attr_e( 'Lisanavigatsioon', 'avallone' ); ?>">
-					<?php
-					wp_nav_menu(
-						array(
-							'theme_location'          => 'utility',
-							'container'               => false,
-							'menu_id'                 => 'utility-menu-bar',
-							'menu_class'              => 'site-header__utility-menu',
-							'depth'                   => 1,
-							'fallback_cb'             => false,
-							'avallone_strip_item_ids' => true,
-						)
-					);
-					?>
-				</nav>
+	<div class="site-header__utility">
+		<div class="container site-header__utility-inner">
+
+			<p class="site-header__promo">
+				<?php esc_html_e( 'Hea maitse liidab - tasuta tarne tellimuselt üle 80€', 'avallone' ); ?>
+			</p>
+
+			<div class="site-header__utility-end">
+
+				<?php if ( $avallone_has_utility ) : ?>
+					<nav class="site-header__utility-nav" aria-label="<?php esc_attr_e( 'Lisanavigatsioon', 'avallone' ); ?>">
+						<?php
+						wp_nav_menu(
+							array(
+								'theme_location'          => 'utility',
+								'container'               => false,
+								'menu_id'                 => 'utility-menu-bar',
+								'menu_class'              => 'site-header__utility-menu',
+								'depth'                   => 1,
+								'fallback_cb'             => false,
+								'avallone_strip_item_ids' => true,
+							)
+						);
+						?>
+					</nav>
+				<?php endif; ?>
+
+				<?php
+				/*
+				 * Language switcher slot (CVI §7.1). Left empty deliberately: no
+				 * translation plugin is active, and a switcher that cannot switch
+				 * anything would be a lie. It belongs here, after the utility nav.
+				 */
+				?>
+
 			</div>
+
 		</div>
-	<?php endif; ?>
+	</div>
 
 	<div class="site-header__main">
 		<div class="container site-header__main-inner">

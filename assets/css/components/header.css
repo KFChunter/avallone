@@ -45,12 +45,14 @@
 
 /* --------------------------------------------------------------------------
    UTILITY BAR (§7.1)
-   Hidden below 1024px — §18: "utility bar collapses". Its links move into the
-   drawer. The bar only renders at all when a menu is assigned to the location.
+
+   Always rendered — it carries the standing promotional line, which is not
+   dependent on any menu. The utility nav inside it is still conditional on a
+   menu being assigned, and per §18 that nav collapses into the drawer below
+   1024px while the promo line stays.
    -------------------------------------------------------------------------- */
 
 .site-header__utility {
-	display: none;
 	background-color: var(--color-surface-light);
 	border-bottom: 1px solid var(--color-border-nav);
 }
@@ -58,9 +60,45 @@
 .site-header__utility-inner {
 	display: flex;
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: space-between;
 	gap: var(--space-md);
 	min-height: 40px;
+}
+
+/* Standing promotional line. Libre Caslon Text italic — the CVI's editorial
+   voice (§3.1) — sized down from .type-body-editorial's 20px to sit on one
+   line inside the 40px bar.
+
+   12px below 768px, matching the utility bar's own link size (§7.1): at 375px
+   the full sentence needs 338px at 14px but only ~327px is available, so it
+   would wrap to two lines and fill the bar edge to edge. */
+.site-header__promo {
+	font-family: var(--font-heading);
+	font-weight: 400;
+	font-style: italic;
+	font-size: 12px;
+	line-height: 16px;
+	color: var(--color-text);
+}
+
+@media (min-width: 768px) {
+
+	.site-header__promo {
+		font-size: 14px;
+		line-height: 20px;
+	}
+}
+
+/* Holds the utility nav and, later, the language switcher.
+
+   §18 — this whole group moves into the drawer below 1024px. Hiding the group
+   rather than just the nav inside it matters: an empty flex item still claims
+   the row's 24px gap, which at 360px is enough to wrap the promo onto a second
+   line. */
+.site-header__utility-end {
+	display: none;
+	align-items: center;
+	gap: var(--space-md);
 }
 
 .site-header__utility-menu {
@@ -494,8 +532,8 @@
 
 @media (min-width: 1024px) {
 
-	.site-header__utility {
-		display: block;
+	.site-header__utility-end {
+		display: flex;
 	}
 
 	.site-header__nav {
