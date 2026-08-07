@@ -2,12 +2,8 @@
 /**
  * Closing page structure.
  *
- * PHASE 1: structural only. Closes the <main> opened in header.php and fires
- * wp_footer().
- *
- * The Avallone footer design (brand column, link columns, contact block, legal
- * alcohol warning, copyright bar — CVI §9) is NOT built yet. It will be added
- * as a template part at the marked slot below.
+ * Closes the <main> opened in header.php, renders the site footer component and
+ * fires wp_footer() immediately before </body>.
  *
  * @package Avallone
  */
@@ -16,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 ?>
 </main><!-- #site-main -->
 
-<?php /* Site footer component slot — added in a later phase. */ ?>
+<?php get_template_part( 'template-parts/footer/site-footer' ); ?>
 
 <?php wp_footer(); ?>
 </body>

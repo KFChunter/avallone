@@ -93,8 +93,11 @@ add_action( 'after_setup_theme', 'avallone_setup' );
 function avallone_register_menus() {
 	register_nav_menus(
 		array(
-			'primary' => esc_html__( 'Primary Navigation', 'avallone' ),
-			'utility' => esc_html__( 'Utility Navigation', 'avallone' ),
+			'primary'         => esc_html__( 'Primary Navigation', 'avallone' ),
+			'utility'         => esc_html__( 'Utility Navigation', 'avallone' ),
+			'footer_products' => esc_html__( 'Footer Products', 'avallone' ),
+			'footer_company'  => esc_html__( 'Footer Company', 'avallone' ),
+			'footer_legal'    => esc_html__( 'Footer Legal', 'avallone' ),
 		)
 	);
 }

@@ -33,6 +33,7 @@ function avallone_style_layers() {
 		'avallone-buttons'    => 'assets/css/components/buttons.css',
 		'avallone-forms'      => 'assets/css/components/forms.css',
 		'avallone-header'     => 'assets/css/components/header.css',
+		'avallone-footer'     => 'assets/css/components/footer.css',
 	);
 }
 
