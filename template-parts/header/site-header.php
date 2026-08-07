@@ -3,7 +3,12 @@
  * Site header.
  *
  * Structure follows CVI §7/§8: a 40px utility bar above an 80px main nav, both
- * sticky, both aligned to the global .container grid.
+ * aligned to the global .container grid. The utility bar scrolls away with the
+ * page; only the main bar is sticky, so it alone occupies viewport space.
+ *
+ * The search panel and mobile drawer sit INSIDE .site-header__main on purpose —
+ * they are positioned at top: 100% of it, so they follow the sticky bar rather
+ * than the full header height once the utility bar has scrolled off.
  *
  * Menu items are never defined here. Each wp_nav_menu() call passes
  * 'fallback_cb' => false so that an unassigned location outputs nothing at all,
@@ -152,7 +157,6 @@ $avallone_account_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page
 			</div>
 
 		</div>
-	</div>
 
 	<?php /* Desktop search panel. The drawer carries its own copy below. */ ?>
 	<div class="site-header__search" id="site-header-search" hidden data-search-panel>
@@ -229,5 +233,7 @@ $avallone_account_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page
 
 		</div>
 	</div>
+
+	</div><!-- .site-header__main -->
 
 </header>

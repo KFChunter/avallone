@@ -21,24 +21,51 @@
 	/* Height of the main bar (CVI §7.2). Drives the drawer's offset. */
 	--site-header-main-height: 80px;
 
+	/*
+	 * The <header> deliberately generates no box of its own.
+	 *
+	 * A sticky element can only travel inside its parent's box. With <header>
+	 * boxed, .site-header__main sits flush against its bottom edge and has zero
+	 * travel available — it would scroll away with the page and never pin.
+	 * display: contents promotes both bars to body-level boxes, so the main bar
+	 * sticks against the full page height while the utility bar scrolls off
+	 * normally above it.
+	 *
+	 * Preferred over pinning the whole header at a negative top offset, which
+	 * would need the utility bar's exact height as a magic number and would
+	 * silently misalign if that bar ever grew.
+	 *
+	 * The element stays in the DOM and the accessibility tree, so the banner
+	 * landmark and the .is-scrolled hook below are unaffected.
+	 */
+	display: contents;
+}
+
+/* Only the main bar is sticky. The utility bar above it scrolls away with the
+   page, so just ~81px of viewport is permanently occupied rather than ~122px —
+   which matters most on phones.
+
+   position: sticky keeps the bar in normal flow, so nothing below it moves when
+   it pins; there is no content jump and no placeholder height to compensate. */
+.site-header__main {
 	position: sticky;
 	top: 0;
 	z-index: 100;
 	transition: box-shadow var(--transition-base);
 }
 
-/* Scroll state — shadow only. No size, colour or padding change, so the
-   header cannot shift the page as it engages. */
-.site-header.is-scrolled {
+/* Scroll state — shadow only. No size, colour or padding change, so pinning
+   cannot shift the page. The class is set on the header element by header.js. */
+.site-header.is-scrolled .site-header__main {
 	box-shadow: var(--shadow-sm);
 }
 
-/* The admin bar is fixed at 783px and up, so a sticky header pinned to 0 would
-   slide underneath it. Below that width the admin bar scrolls away with the
-   page and needs no offset. */
+/* The admin bar is fixed at 783px and up, so a bar pinned to 0 would slide
+   underneath it. Below that width the admin bar scrolls away with the page and
+   needs no offset. */
 @media (min-width: 783px) {
 
-	.admin-bar .site-header {
+	.admin-bar .site-header__main {
 		top: 32px;
 	}
 }
@@ -384,10 +411,11 @@
 /* --------------------------------------------------------------------------
    MOBILE DRAWER
 
-   Positioned against the header itself (top: 100%) rather than at a fixed
-   viewport offset. The header is sticky, so the drawer tracks it — and this
-   stays correct when the WordPress admin bar shifts the header down, which a
-   hardcoded top offset does not.
+   Positioned against .site-header__main (top: 100%) rather than at a fixed
+   viewport offset. That bar is the sticky one, so the drawer tracks it — it
+   opens directly beneath the main nav whether the utility bar is still on
+   screen or has scrolled away, and it stays correct when the WordPress admin
+   bar shifts the header down. A hardcoded top offset does none of that.
 
    100dvh so mobile browser chrome does not clip the bottom.
    -------------------------------------------------------------------------- */
@@ -413,6 +441,16 @@
 .site-header__drawer[hidden] {
 	display: none;
 	opacity: 0;
+}
+
+/* header.js moves focus here when the drawer opens, so screen readers land
+   inside the panel rather than back at the top of the document. The panel is a
+   scripted focus target (tabindex="-1"), not a control a user can tab to, so
+   the global :focus-visible ring would draw a 2px red outline around the whole
+   panel for no reason. Every interactive element inside keeps its own ring. */
+.site-header__drawer:focus,
+.site-header__drawer:focus-visible {
+	outline: none;
 }
 
 /* Fade in on open. Browsers without @starting-style simply show it instantly. */
