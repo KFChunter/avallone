@@ -91,6 +91,87 @@ function avallone_woocommerce_hooks() {
 add_action( 'init', 'avallone_woocommerce_hooks' );
 
 /**
+ * Number of items currently in the cart.
+ *
+ * WC()->cart is null on admin, REST and cron requests, and before WooCommerce
+ * has initialised its session — so every caller goes through this guard rather
+ * than touching the cart object directly.
+ *
+ * @return int
+ */
+function avallone_cart_count() {
+	if ( ! function_exists( 'WC' ) ) {
+		return 0;
+	}
+
+	$woocommerce = WC();
+
+	if ( ! $woocommerce || ! isset( $woocommerce->cart ) || ! $woocommerce->cart ) {
+		return 0;
+	}
+
+	return (int) $woocommerce->cart->get_cart_contents_count();
+}
+
+/**
+ * The cart count badge shown on the header cart action.
+ *
+ * Always rendered, carrying the `hidden` attribute at zero. WooCommerce's
+ * fragment refresh replaces this element by CSS selector, so it has to exist in
+ * the DOM even when empty — otherwise the badge would never appear after the
+ * first AJAX add-to-cart.
+ *
+ * The count is followed by screen-reader-only text inside the same element, so
+ * the visible number and its accessible description update together.
+ *
+ * @return string
+ */
+function avallone_get_cart_badge() {
+	$count = avallone_cart_count();
+
+	return sprintf(
+		'<span class="site-header__cart-count"%1$s>%2$s<span class="screen-reader-text"> %3$s</span></span>',
+		$count > 0 ? '' : ' hidden',
+		esc_html( $count > 99 ? '99+' : (string) $count ),
+		esc_html__( 'toodet ostukorvis', 'avallone' )
+	);
+}
+
+/**
+ * Keep the header cart badge in sync after AJAX add-to-cart.
+ *
+ * @param array $fragments Fragments to refresh, keyed by CSS selector.
+ * @return array
+ */
+function avallone_cart_badge_fragment( $fragments ) {
+	$fragments['span.site-header__cart-count'] = avallone_get_cart_badge();
+
+	return $fragments;
+}
+add_filter( 'woocommerce_add_to_cart_fragments', 'avallone_cart_badge_fragment' );
+
+/**
+ * Enqueue WooCommerce's cart fragments script.
+ *
+ * WooCommerce registers `wc-cart-fragments` but only enqueues it on its own
+ * pages. The header cart badge is site-wide, so without this the badge would go
+ * stale until the next full page load.
+ *
+ * This is the one place jQuery enters the theme, as a dependency of
+ * WooCommerce's own script. Our header.js is vanilla.
+ *
+ * @return void
+ */
+function avallone_enqueue_cart_fragments() {
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		return;
+	}
+
+	wp_enqueue_script( 'wc-cart-fragments' );
+}
+add_action( 'wp_enqueue_scripts', 'avallone_enqueue_cart_fragments' );
+
+/**
  * Enqueue the WooCommerce compatibility stylesheet.
  *
  * Loaded only on shop pages, so it never reaches the global bundle. It depends

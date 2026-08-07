@@ -32,6 +32,7 @@ function avallone_style_layers() {
 		'avallone-layout'     => 'assets/css/layout/layout.css',
 		'avallone-buttons'    => 'assets/css/components/buttons.css',
 		'avallone-forms'      => 'assets/css/components/forms.css',
+		'avallone-header'     => 'assets/css/components/header.css',
 	);
 }
 
@@ -96,6 +97,34 @@ function avallone_enqueue_styles() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'avallone_enqueue_styles' );
+
+/**
+ * Enqueue front-end scripts.
+ *
+ * Vanilla JavaScript with no dependencies, deferred so it never blocks render.
+ * Component scripts are added to $scripts as components are built.
+ *
+ * @return void
+ */
+function avallone_enqueue_scripts() {
+	$scripts = array(
+		'avallone-header' => 'assets/js/header.js',
+	);
+
+	foreach ( $scripts as $handle => $relative_path ) {
+		wp_enqueue_script(
+			$handle,
+			AVALLONE_URI . '/' . $relative_path,
+			array(),
+			avallone_asset_version( $relative_path ),
+			array(
+				'strategy'  => 'defer',
+				'in_footer' => true,
+			)
+		);
+	}
+}
+add_action( 'wp_enqueue_scripts', 'avallone_enqueue_scripts' );
 
 /**
  * Load the brand fonts inside the block editor.

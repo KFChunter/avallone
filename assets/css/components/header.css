@@ -1,0 +1,534 @@
+/* ==========================================================================
+   SITE HEADER (CVI §7, §8, §18)
+   --------------------------------------------------------------------------
+   Mobile-first. Below 1024px the primary nav and utility bar collapse into a
+   drawer and the action row reduces to cart + hamburger; at 1024px the full
+   desktop header takes over (CVI §18 puts the full nav at >=1024px).
+
+   All colour, type, spacing, radius, shadow and transition values come from
+   settings/tokens.css. The one local custom property below is a layout
+   measurement, not a design token — the drawer has to begin exactly where the
+   main bar ends, and nothing outside this component needs the value.
+
+   Note on `hidden`: several elements here are toggled with the HTML `hidden`
+   attribute, which removes them from the accessibility tree and the tab order.
+   Because this file gives those elements a `display` value, each one must
+   restore `display: none` for `[hidden]` explicitly — an author `display` rule
+   otherwise overrides the user-agent default and the attribute stops working.
+   ========================================================================== */
+
+.site-header {
+	/* Height of the main bar (CVI §7.2). Drives the drawer's offset. */
+	--site-header-main-height: 80px;
+
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	transition: box-shadow var(--transition-base);
+}
+
+/* Scroll state — shadow only. No size, colour or padding change, so the
+   header cannot shift the page as it engages. */
+.site-header.is-scrolled {
+	box-shadow: var(--shadow-sm);
+}
+
+/* The admin bar is fixed at 783px and up, so a sticky header pinned to 0 would
+   slide underneath it. Below that width the admin bar scrolls away with the
+   page and needs no offset. */
+@media (min-width: 783px) {
+
+	.admin-bar .site-header {
+		top: 32px;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   UTILITY BAR (§7.1)
+   Hidden below 1024px — §18: "utility bar collapses". Its links move into the
+   drawer. The bar only renders at all when a menu is assigned to the location.
+   -------------------------------------------------------------------------- */
+
+.site-header__utility {
+	display: none;
+	background-color: var(--color-surface-light);
+	border-bottom: 1px solid var(--color-border-nav);
+}
+
+.site-header__utility-inner {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: var(--space-md);
+	min-height: 40px;
+}
+
+.site-header__utility-menu {
+	display: flex;
+	align-items: center;
+	gap: var(--space-md);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.site-header__utility-menu a {
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 16px;
+	color: var(--color-text);
+	text-decoration: none;
+	transition: color var(--transition-base);
+}
+
+.site-header__utility-menu a:hover {
+	color: var(--color-primary);
+}
+
+.site-header__utility-menu .current-menu-item > a {
+	color: var(--color-primary-dark);
+}
+
+/* --------------------------------------------------------------------------
+   MAIN BAR (§7.2)
+   -------------------------------------------------------------------------- */
+
+.site-header__main {
+	/* §7.2 rgba(252,249,248,0.95) — derived from the cream token rather than
+	   repeating the hex, so the token stays the single source of truth. */
+	background-color: color-mix(in srgb, var(--color-cream) 95%, transparent);
+	-webkit-backdrop-filter: blur(2px);
+	backdrop-filter: blur(2px);
+	border-bottom: 1px solid var(--color-border-nav);
+}
+
+/* Flex with space-between rather than a fixed grid: with no primary menu
+   assigned the nav element is not rendered at all, and this still places the
+   brand left and the actions right without an empty column. */
+.site-header__main-inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-md);
+	min-height: var(--site-header-main-height);
+}
+
+/* --------------------------------------------------------------------------
+   BRAND
+   -------------------------------------------------------------------------- */
+
+.site-header__brand {
+	display: flex;
+	align-items: center;
+	flex: 0 0 auto;
+}
+
+.site-header__brand .custom-logo {
+	height: 40px; /* §7.2 */
+	width: auto;
+}
+
+.site-header__brand .custom-logo-link {
+	display: block;
+	line-height: 0;
+}
+
+/* Placeholder shown until a logo is uploaded. Deliberately plain text — it is
+   the site name, not a stand-in for the Avallone mark. */
+.site-header__brand-fallback {
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 24px;
+	color: var(--color-ink);
+	text-decoration: none;
+	transition: color var(--transition-base);
+}
+
+.site-header__brand-fallback:hover {
+	color: var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   PRIMARY NAV (§7.2)
+   -------------------------------------------------------------------------- */
+
+.site-header__nav {
+	display: none;
+	flex: 1 1 auto;
+	/* Allows the nav to shrink inside the flex row instead of forcing the
+	   header wider than the container. */
+	min-width: 0;
+	justify-content: center;
+}
+
+/* §7.2 specifies a 24px gap, which is applied from the 1280px design width up.
+   Between 1024 and 1279 it tightens to 16px: at 1024 the CVI's six primary
+   categories otherwise leave only ~25px between the last item and the action
+   icons, so a seventh item or a longer label would collide. */
+.site-header__menu {
+	display: flex;
+	align-items: center;
+	gap: var(--space-sm);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.site-header__menu a {
+	display: block;
+	/* 8px top balances the 6px padding + 2px active border below, so the label
+	   stays optically centred whether or not the item is current. */
+	padding-top: 8px;
+	padding-bottom: 6px;
+	border-bottom: 2px solid transparent;
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 20px;
+	letter-spacing: 0.05em;
+	color: var(--color-text);
+	text-decoration: none;
+	white-space: nowrap;
+	transition:
+		color var(--transition-base),
+		border-color var(--transition-base);
+}
+
+.site-header__menu a:hover {
+	color: var(--color-primary);
+}
+
+.site-header__menu .current-menu-item > a,
+.site-header__menu .current-menu-parent > a,
+.site-header__menu .current-menu-ancestor > a,
+.site-header__menu .current_page_item > a,
+.site-header__menu .current_page_parent > a {
+	color: var(--color-primary-dark);
+	border-bottom-color: var(--color-primary-dark);
+}
+
+/* --------------------------------------------------------------------------
+   ACTIONS (§7.2)
+
+   Each action is a 44px target for touch. The flex gap is 8px rather than the
+   CVI's literal 24px because that 24px measures icon-to-icon: inside 44px
+   boxes an 8px gap puts the icons ~32px apart, which is the closest the CVI
+   rhythm gets without dropping below an accessible target size.
+   -------------------------------------------------------------------------- */
+
+.site-header__actions {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+	flex: 0 0 auto;
+}
+
+.site-header__action {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 44px;
+	min-height: 44px;
+	color: var(--color-text);
+	text-decoration: none;
+	cursor: pointer;
+	transition: color var(--transition-base);
+}
+
+.site-header__action:hover {
+	color: var(--color-primary);
+}
+
+/* Search and account live in the drawer below 1024px. */
+.site-header__action--search,
+.site-header__action--account {
+	display: none;
+}
+
+/* Cart badge (§7.2) — 16px circle, offset over the icon's top-right corner. */
+.site-header__cart-count {
+	position: absolute;
+	top: 6px;
+	right: 4px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 16px;
+	height: 16px;
+	padding: 0 4px;
+	border-radius: var(--radius-pill);
+	background-color: var(--color-primary-dark);
+	color: var(--color-on-dark-pure);
+	font-family: var(--font-ui);
+	font-weight: 700;
+	font-size: 10px;
+	line-height: 1;
+}
+
+.site-header__cart-count[hidden] {
+	display: none;
+}
+
+/* --------------------------------------------------------------------------
+   HAMBURGER
+   -------------------------------------------------------------------------- */
+
+.site-header__burger-icon {
+	display: inline-flex;
+}
+
+.site-header__burger-icon[hidden] {
+	display: none;
+}
+
+/* --------------------------------------------------------------------------
+   SEARCH FORM
+   The field itself inherits its border, radius, padding and focus ring from
+   components/forms.css. Only the trailing submit button is added here.
+   -------------------------------------------------------------------------- */
+
+.header-search {
+	position: relative;
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+/* Two classes so this reliably beats the `input[type='search']` selector in
+   components/forms.css, which sets the padding shorthand. */
+.header-search .header-search__field {
+	padding-right: 52px;
+}
+
+.header-search__submit {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 48px;
+	color: var(--color-text);
+	cursor: pointer;
+	transition: color var(--transition-base);
+}
+
+.header-search__submit:hover {
+	color: var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   DESKTOP SEARCH PANEL
+
+   Absolutely positioned against the sticky header so opening it overlays the
+   page rather than pushing content down.
+   -------------------------------------------------------------------------- */
+
+.site-header__search {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	display: none;
+	background-color: var(--color-cream);
+	border-bottom: 1px solid var(--color-border-nav);
+	box-shadow: var(--shadow-sm);
+}
+
+.site-header__search-inner {
+	padding-block: var(--space-sm);
+}
+
+/* --------------------------------------------------------------------------
+   MOBILE DRAWER
+
+   Positioned against the header itself (top: 100%) rather than at a fixed
+   viewport offset. The header is sticky, so the drawer tracks it — and this
+   stays correct when the WordPress admin bar shifts the header down, which a
+   hardcoded top offset does not.
+
+   100dvh so mobile browser chrome does not clip the bottom.
+   -------------------------------------------------------------------------- */
+
+.site-header__drawer {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	display: block;
+	/* 100% is the header's own height, so this stays exact including its
+	   bottom border — and self-corrects if the header height ever changes. */
+	max-height: calc(100dvh - 100%);
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	background-color: var(--color-cream);
+	opacity: 1;
+	transition:
+		opacity var(--transition-base),
+		display var(--transition-base) allow-discrete;
+}
+
+.site-header__drawer[hidden] {
+	display: none;
+	opacity: 0;
+}
+
+/* Fade in on open. Browsers without @starting-style simply show it instantly. */
+@starting-style {
+	.site-header__drawer:not([hidden]) {
+		opacity: 0;
+	}
+}
+
+.site-header__drawer-inner {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-lg);
+	padding-block: var(--space-lg);
+}
+
+.site-header__drawer-menu {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.site-header__drawer-menu a {
+	display: block;
+	padding: var(--space-sm) 0;
+	border-bottom: 1px solid var(--color-border);
+	font-family: var(--font-heading);
+	font-weight: 400;
+	font-size: 24px;
+	line-height: 1.5;
+	color: var(--color-ink);
+	text-decoration: none;
+	transition: color var(--transition-base);
+}
+
+.site-header__drawer-menu a:hover {
+	color: var(--color-primary);
+}
+
+.site-header__drawer-menu .current-menu-item > a,
+.site-header__drawer-menu .current-menu-parent > a,
+.site-header__drawer-menu .current-menu-ancestor > a,
+.site-header__drawer-menu .current_page_item > a {
+	color: var(--color-primary-dark);
+}
+
+.site-header__drawer-footer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+	padding-top: var(--space-md);
+	border-top: 1px solid var(--color-border);
+}
+
+.site-header__drawer-account {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-xs);
+	min-height: 44px;
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 20px;
+	letter-spacing: 0.05em;
+	color: var(--color-text);
+	text-decoration: none;
+	transition: color var(--transition-base);
+}
+
+.site-header__drawer-account:hover {
+	color: var(--color-primary);
+}
+
+.site-header__drawer-utility-menu {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-sm) var(--space-md);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.site-header__drawer-utility-menu a {
+	display: inline-block;
+	padding-block: var(--space-xs);
+	font-family: var(--font-meta);
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 16px;
+	color: var(--color-text);
+	text-decoration: none;
+	transition: color var(--transition-base);
+}
+
+.site-header__drawer-utility-menu a:hover {
+	color: var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   SCROLL LOCK
+
+   Applied to <html> by header.js while the drawer is open. --scrollbar-gap is
+   measured in JS and replaces the width of the hidden scrollbar, so the header
+   does not jump sideways as the drawer opens.
+   -------------------------------------------------------------------------- */
+
+.has-drawer-open {
+	overflow: hidden;
+	padding-right: var(--scrollbar-gap, 0px);
+}
+
+/* --------------------------------------------------------------------------
+   DESKTOP (CVI §18 — full nav at >=1024px)
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 1024px) {
+
+	.site-header__utility {
+		display: block;
+	}
+
+	.site-header__nav {
+		display: flex;
+	}
+
+	.site-header__action--search,
+	.site-header__action--account {
+		display: inline-flex;
+	}
+
+	.site-header__search {
+		display: block;
+	}
+
+	.site-header__search[hidden] {
+		display: none;
+	}
+
+	/* The drawer and its trigger do not exist at this width. */
+	.site-header__burger,
+	.site-header__drawer {
+		display: none;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   LARGE DESKTOP — the CVI's design width, where the full §7.2 nav gap applies
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 1280px) {
+
+	.site-header__menu {
+		gap: var(--space-md);
+	}
+}

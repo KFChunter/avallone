@@ -2,12 +2,7 @@
 /**
  * Document head and opening page structure.
  *
- * PHASE 1: structural only. This file provides the HTML document skeleton so
- * that wp_head() can load the theme's stylesheets — nothing renders without it.
- *
- * The Avallone header design (utility bar, main nav, logo, action icons — CVI
- * §7/§8) is NOT built yet. It will be added as a template part at the marked
- * slot below.
+ * Provides the HTML document skeleton and renders the site header component.
  *
  * @package Avallone
  */
@@ -29,6 +24,6 @@ defined( 'ABSPATH' ) || exit;
 	<?php esc_html_e( 'Skip to content', 'avallone' ); ?>
 </a>
 
-<?php /* Site header component slot — added in a later phase. */ ?>
+<?php get_template_part( 'template-parts/header/site-header' ); ?>
 
 <main id="site-main" class="site-main">
