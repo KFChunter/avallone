@@ -48,8 +48,8 @@
 	inset: 0;
 	background: linear-gradient(
 		180deg,
-		color-mix(in srgb, var(--color-cream) 90%, transparent) 0%,
-		color-mix(in srgb, var(--color-cream) 82%, transparent) 100%
+		color-mix(in srgb, var(--color-cream) 80%, transparent) 0%,
+		color-mix(in srgb, var(--color-cream) 66%, transparent) 100%
 	);
 }
 
@@ -381,7 +381,7 @@
 	box-shadow:
 		0 20px 25px -5px rgba(0, 0, 0, 0.1),
 		0 8px 10px -6px rgba(0, 0, 0, 0.1);
-	animation: home-hero-float 4.5s ease-in-out infinite alternate;
+	animation: home-hero-float 5.5s ease-in-out infinite alternate;
 }
 
 .home-hero__origin-icon {
@@ -429,7 +429,7 @@
 	}
 
 	to {
-		transform: translateY(-7px);
+		transform: translateY(-18px);
 	}
 }
 
@@ -493,12 +493,17 @@
 		padding-bottom: 0;
 	}
 
+	/* The wash is heaviest over the text column and clears quickly after it,
+	   so the vineyard stays vivid across the centre and right. Stop positions
+	   are tuned to where the body copy actually ends at each range — measured,
+	   not guessed: at 1024 it reaches ~56% of the viewport, at 1280+ only ~36%. */
 	.home-hero__bg::after {
 		background: linear-gradient(
 			90deg,
-			color-mix(in srgb, var(--color-cream) 94%, transparent) 0%,
-			color-mix(in srgb, var(--color-cream) 84%, transparent) 45%,
-			color-mix(in srgb, var(--color-cream) 68%, transparent) 100%
+			color-mix(in srgb, var(--color-cream) 90%, transparent) 0%,
+			color-mix(in srgb, var(--color-cream) 80%, transparent) 52%,
+			color-mix(in srgb, var(--color-cream) 40%, transparent) 78%,
+			color-mix(in srgb, var(--color-cream) 24%, transparent) 100%
 		);
 	}
 
@@ -523,6 +528,16 @@
 
 	.home-hero__inner {
 		min-height: 778px;
+	}
+
+	.home-hero__bg::after {
+		background: linear-gradient(
+			90deg,
+			color-mix(in srgb, var(--color-cream) 90%, transparent) 0%,
+			color-mix(in srgb, var(--color-cream) 78%, transparent) 35%,
+			color-mix(in srgb, var(--color-cream) 34%, transparent) 65%,
+			color-mix(in srgb, var(--color-cream) 20%, transparent) 100%
+		);
 	}
 
 	.home-hero__title {
