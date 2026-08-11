@@ -1,0 +1,550 @@
+/* ==========================================================================
+   FRONT PAGE — HERO
+   --------------------------------------------------------------------------
+   Loaded only on the front page (see inc/enqueue.php).
+
+   Mobile-first: a single stacked column below 1024px, then the Figma 6/6 split.
+   The hero carries its own 12-column grid with a 24px gap taken from the Figma
+   reference — deliberately not --grid-gap (80px), which stays untouched for the
+   global layout.
+
+   Figma-specific measurements (48px heading, 380px card, 420px bottle area)
+   live here as component values rather than becoming global tokens.
+   ========================================================================== */
+
+.home-hero {
+	position: relative;
+	/* Keeps the negative z-index background layer inside the hero's own
+	   stacking context rather than sliding behind the page. */
+	isolation: isolate;
+	overflow: hidden;
+	padding-block: var(--space-lg);
+}
+
+/* --------------------------------------------------------------------------
+   BACKGROUND
+
+   A layer, not the container. The photograph and its overlay sit behind the
+   grid, so softening the image never touches the heading, card or buttons.
+   -------------------------------------------------------------------------- */
+
+.home-hero__bg {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background-color: var(--color-surface-light);
+}
+
+.home-hero__bg-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.home-hero__bg::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(
+		180deg,
+		color-mix(in srgb, var(--color-cream) 90%, transparent) 0%,
+		color-mix(in srgb, var(--color-cream) 82%, transparent) 100%
+	);
+}
+
+/* --------------------------------------------------------------------------
+   GRID
+   -------------------------------------------------------------------------- */
+
+.home-hero__inner {
+	position: relative;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-2xl) var(--space-md);
+	align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   LEFT CONTENT
+   -------------------------------------------------------------------------- */
+
+.home-hero__content {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--space-md);
+	min-width: 0;
+}
+
+.home-hero__badge {
+	margin: 0;
+	padding: 9px 25px;
+	border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+	border-radius: var(--radius-button);
+	background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--color-primary);
+}
+
+/* Hero-specific display size. The global .type-display scale is unchanged. */
+.home-hero__title {
+	max-width: 576px;
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: 32px;
+	line-height: 40px;
+	letter-spacing: -0.01em;
+}
+
+.home-hero__title-main,
+.home-hero__title-accent {
+	display: block;
+}
+
+.home-hero__title-main {
+	font-weight: 700;
+	font-style: normal;
+	color: var(--color-ink);
+}
+
+.home-hero__title-accent {
+	font-weight: 400;
+	font-style: italic;
+	color: var(--color-primary-dark);
+}
+
+.home-hero__description {
+	max-width: 448px;
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 18px;
+	line-height: 29.25px;
+	color: var(--color-text);
+}
+
+/* align-items: flex-start is what keeps the buttons at their intrinsic widths
+   on desktop — the screenshot shows two differently sized buttons, and a
+   stretch default would run both across the whole six-column area. Below 768px
+   the global .btn is width:100%, so they still go full width there. */
+.home-hero__actions {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	align-self: stretch;
+	gap: var(--space-md);
+	padding-top: var(--space-md);
+}
+
+/* Composes with .btn / .btn--primary / .btn--outline; only the hero's own type
+   treatment is restated. */
+.home-hero__cta {
+	font-size: 14px;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+}
+
+/* --------------------------------------------------------------------------
+   PRODUCT CARD
+   -------------------------------------------------------------------------- */
+
+/* Reserves room for the floater, which hangs below the card on narrow screens
+   (see .home-hero__origin). */
+.home-hero__product {
+	display: flex;
+	justify-content: center;
+	min-width: 0;
+	padding-bottom: 44px;
+}
+
+.home-hero__card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-lg);
+	width: 100%;
+	max-width: 380px;
+	padding: var(--space-lg);
+	border: 1px solid color-mix(in srgb, var(--color-cream) 55%, transparent);
+	border-radius: var(--radius-button);
+	background-color: color-mix(in srgb, var(--color-cream) 60%, transparent);
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+	box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.home-hero__heart {
+	position: absolute;
+	top: 25px;
+	left: 25px;
+	z-index: 2;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border-radius: var(--radius-pill);
+	background-color: color-mix(in srgb, var(--color-cream) 80%, transparent);
+	color: var(--color-primary-dark);
+	box-shadow: 0 8px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* The shared icon set is outlined; here the mark reads as filled, per Figma. */
+.home-hero__heart svg {
+	fill: currentColor;
+	stroke: none;
+}
+
+/* --------------------------------------------------------------------------
+   BOTTLE
+
+   contain, never cover: real bottle photography must never be cropped. The
+   max-* pair with auto dimensions scales the image inside the area while
+   preserving its aspect ratio.
+   -------------------------------------------------------------------------- */
+
+.home-hero__bottle {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 260px;
+}
+
+.home-hero__glow {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 256px;
+	height: 256px;
+	transform: translate(-50%, -50%);
+	border-radius: var(--radius-pill);
+	background-color: color-mix(in srgb, var(--color-primary) 5%, transparent);
+	filter: blur(20px);
+}
+
+.home-hero__bottle-link {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	max-width: 100%;
+}
+
+.home-hero__bottle-image {
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
+	height: auto;
+	object-fit: contain;
+}
+
+/* --------------------------------------------------------------------------
+   PRODUCT DETAILS
+   -------------------------------------------------------------------------- */
+
+.home-hero__details {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xs);
+	text-align: center;
+}
+
+/* Libre Caslon Text rather than Figma's Playfair 400: the CVI assigns product
+   headings to Libre Caslon (§3.1), and Playfair is only loaded at 400 in
+   italic, so upright 400 would be synthesised. */
+.home-hero__product-name {
+	margin: 0;
+	font-family: var(--font-heading);
+	font-weight: 400;
+	font-size: 24px;
+	line-height: 32px;
+	color: var(--color-ink);
+}
+
+.home-hero__product-name a {
+	color: inherit;
+	text-decoration: none;
+	transition: color var(--transition-base);
+}
+
+.home-hero__product-name a:hover {
+	color: var(--color-primary);
+}
+
+.home-hero__product-meta {
+	margin: 0;
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 16px;
+	text-transform: uppercase;
+	color: var(--color-text);
+}
+
+.home-hero__price {
+	display: flex;
+	align-items: baseline;
+	justify-content: center;
+	gap: 10px;
+	margin: 0;
+	padding-top: var(--space-sm);
+}
+
+.home-hero__price-value {
+	font-family: var(--font-ui);
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 32px;
+	color: var(--color-primary-dark);
+}
+
+/* WooCommerce wraps prices in its own markup; keep struck-through originals
+   legible without restyling the shop globally. */
+.home-hero__price-value del {
+	margin-right: 6px;
+	font-size: 16px;
+	color: var(--color-text);
+	opacity: 0.7;
+}
+
+.home-hero__price-value ins {
+	text-decoration: none;
+}
+
+.home-hero__volume {
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 12px;
+	color: var(--color-text);
+	opacity: 0.6;
+}
+
+.home-hero__cart {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-sm);
+	margin-top: var(--space-md);
+	padding: var(--space-md);
+	border-radius: var(--radius-button);
+	background-color: var(--color-ink);
+	color: var(--color-cream);
+	font-family: var(--font-ui);
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	text-transform: uppercase;
+	text-decoration: none;
+	transition: background-color var(--transition-base);
+}
+
+.home-hero__cart:hover {
+	background-color: var(--color-text);
+	color: var(--color-cream);
+}
+
+/* WooCommerce appends its own "view cart" link after a successful AJAX add. */
+.home-hero__details .added_to_cart {
+	margin-top: var(--space-xs);
+	font-family: var(--font-meta);
+	font-size: 12px;
+	color: var(--color-text);
+}
+
+/* --------------------------------------------------------------------------
+   ORIGIN FLOATER
+   -------------------------------------------------------------------------- */
+
+/* On mobile the card is barely wider than this panel, so there is no position
+   inside it that does not bury the bottle, the price or the add-to-cart button.
+   It therefore hangs off the card's bottom-left corner instead — the same
+   "floating panel attached to the card" idea, without covering its content. */
+.home-hero__origin {
+	position: absolute;
+	left: -8px;
+	bottom: -44px;
+	z-index: 3;
+	display: flex;
+	align-items: center;
+	gap: var(--space-md);
+	padding: var(--space-sm) var(--space-md);
+	border: 1px solid color-mix(in srgb, var(--color-rose) 40%, transparent);
+	border-radius: var(--radius-button);
+	background-color: color-mix(in srgb, var(--color-cream) 92%, transparent);
+	box-shadow:
+		0 20px 25px -5px rgba(0, 0, 0, 0.1),
+		0 8px 10px -6px rgba(0, 0, 0, 0.1);
+	animation: home-hero-float 4.5s ease-in-out infinite alternate;
+}
+
+.home-hero__origin-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 40px;
+	height: 40px;
+	border-radius: var(--radius-pill);
+	background-color: var(--color-surface-light);
+	color: var(--color-primary);
+}
+
+.home-hero__origin-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.home-hero__origin-label {
+	font-family: var(--font-ui);
+	font-weight: 700;
+	font-size: 10px;
+	line-height: 15px;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--color-text);
+}
+
+.home-hero__origin-value {
+	font-family: var(--font-ui);
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 20px;
+	letter-spacing: 0.05em;
+	color: var(--color-ink);
+}
+
+/* A slow breath rather than a bounce: `alternate` with ease-in-out eases
+   through both ends, so there is no abrupt reversal. */
+@keyframes home-hero-float {
+
+	from {
+		transform: translateY(0);
+	}
+
+	to {
+		transform: translateY(-7px);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.home-hero__origin {
+		animation: none;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   TABLET (>=768)
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 768px) {
+
+	.home-hero {
+		padding-block: var(--space-xl);
+	}
+
+	.home-hero__title {
+		font-size: 40px;
+		line-height: 48px;
+	}
+
+	.home-hero__bottle {
+		height: 340px;
+	}
+
+	.home-hero__origin {
+		left: -24px;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   DESKTOP (>=1024) — the Figma 6/6 split
+
+   The card and bottle stay smaller than their 1280 sizes through this range:
+   at 1024 the container is 896px, so a full-width 380px card would crowd the
+   heading and drag the floater into the body copy.
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 1024px) {
+
+	.home-hero__inner {
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+		column-gap: var(--space-md);
+	}
+
+	.home-hero__content {
+		grid-column: 1 / span 6;
+	}
+
+	.home-hero--no-product .home-hero__content {
+		grid-column: 1 / span 8;
+	}
+
+	.home-hero__product {
+		grid-column: 7 / span 6;
+		justify-content: flex-end;
+		padding-bottom: 0;
+	}
+
+	.home-hero__bg::after {
+		background: linear-gradient(
+			90deg,
+			color-mix(in srgb, var(--color-cream) 94%, transparent) 0%,
+			color-mix(in srgb, var(--color-cream) 84%, transparent) 45%,
+			color-mix(in srgb, var(--color-cream) 68%, transparent) 100%
+		);
+	}
+
+	.home-hero__card {
+		max-width: 340px;
+	}
+
+	/* Pushed mostly outside the card. At the Figma -48px the panel sits over
+	   the card's centred price row and hides it — the concept is an element
+	   overlapping the card's lower-left corner, not one covering its content. */
+	.home-hero__origin {
+		left: -96px;
+		bottom: 64px;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   LARGE DESKTOP (>=1280) — full Figma geometry
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 1280px) {
+
+	.home-hero__inner {
+		min-height: 778px;
+	}
+
+	.home-hero__title {
+		font-size: 48px;
+		line-height: 56px;
+	}
+
+	.home-hero__actions {
+		padding-top: var(--space-lg);
+	}
+
+	.home-hero__card {
+		max-width: 380px;
+	}
+
+	.home-hero__bottle {
+		height: 420px;
+	}
+
+	.home-hero__origin {
+		left: -120px;
+		bottom: 80px;
+		padding: 25px;
+	}
+}

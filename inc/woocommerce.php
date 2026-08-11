@@ -91,6 +91,35 @@ function avallone_woocommerce_hooks() {
 add_action( 'init', 'avallone_woocommerce_hooks' );
 
 /**
+ * First non-empty product attribute from a list of candidate names.
+ *
+ * WC_Product::get_attribute() resolves both global taxonomy attributes
+ * (`pa_something`) and per-product custom attributes by label, so a caller can
+ * offer several spellings and take whichever the shop actually uses. Returns an
+ * empty string when none match, which lets the caller fall back to its own
+ * value without any warning.
+ *
+ * @param mixed    $product A WC_Product, or anything else.
+ * @param string[] $names   Candidate attribute names, in order of preference.
+ * @return string
+ */
+function avallone_product_attribute( $product, array $names ) {
+	if ( ! $product instanceof WC_Product ) {
+		return '';
+	}
+
+	foreach ( $names as $name ) {
+		$value = $product->get_attribute( $name );
+
+		if ( '' !== $value ) {
+			return $value;
+		}
+	}
+
+	return '';
+}
+
+/**
  * Number of items currently in the cart.
  *
  * WC()->cart is null on admin, REST and cron requests, and before WooCommerce

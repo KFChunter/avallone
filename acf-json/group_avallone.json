@@ -1,0 +1,290 @@
+{
+    "key": "group_avallone",
+    "title": "Avallone",
+    "fields": [
+        {
+            "key": "field_avallone_hero_tab",
+            "label": "Avaleht — Hero",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_avallone_hero_background",
+            "label": "Taustapilt",
+            "name": "hero_background",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Suur taustapilt hero-ala taga. Soovitatav laius vähemalt 1920px.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "mime_types": "jpg,jpeg,png,webp",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0
+        },
+        {
+            "key": "field_avallone_hero_badge",
+            "label": "Märgis",
+            "name": "hero_badge",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Väike silt pealkirja kohal. Näiteks: Curated Selection",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "maxlength": 60,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_hero_heading",
+            "label": "Pealkiri",
+            "name": "hero_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Hero peamine pealkiri. Näiteks: Curated Heritage &amp; Global Excellence.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_hero_heading_accent",
+            "label": "Kursiivne pealkiri",
+            "name": "hero_heading_accent",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Pealkirja teine rida, mis kuvatakse kursiivis ja punases toonis. Näiteks: Fireside Pairings",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_hero_description",
+            "label": "Kirjeldus",
+            "name": "hero_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Lühike tutvustav tekst pealkirja all.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "new_lines": "",
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_avallone_hero_cta_primary",
+            "label": "Peamine nupp",
+            "name": "hero_cta_primary",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Punane esmane nupp. Lisa nupu tekst ja link.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_avallone_hero_cta_secondary",
+            "label": "Teine nupp",
+            "name": "hero_cta_secondary",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Kontuuriga teisene nupp. Jäta tühjaks, kui seda pole vaja.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_avallone_hero_product",
+            "label": "Esiletõstetud toode",
+            "name": "hero_product",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "Vali WooCommerce'i toode, mida kuvatakse avalehe hero alas. Toote nimi, pilt, hind ja link tulevad automaatselt tootekaardilt.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "product"
+            ],
+            "return_format": "id",
+            "ui": 1,
+            "multiple": 0,
+            "allow_null": 1,
+            "taxonomy": [],
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_avallone_hero_product_note",
+            "label": "",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "<strong>Toote lisainfo<\/strong><br>Neid välju kasutatakse ainult siis, kui valitud tootel endal vastavat infot ei ole. Kui lisad tootele hiljem õiged tooteatribuudid, kuvatakse need automaatselt ja need väljad võib tühjaks jätta.",
+            "esc_html": 0,
+            "new_lines": ""
+        },
+        {
+            "key": "field_avallone_hero_product_origin",
+            "label": "Toote päritolu",
+            "name": "hero_product_origin",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Näiteks: Veneto, Italy",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_hero_product_vintage",
+            "label": "Aastakäik",
+            "name": "hero_product_vintage",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Näiteks: 2021",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "maxlength": 20,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_hero_product_volume",
+            "label": "Maht",
+            "name": "hero_product_volume",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Näiteks: 75cl",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "maxlength": 20,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_type",
+                "operator": "==",
+                "value": "front_page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content",
+        "custom_fields",
+        "discussion",
+        "comments"
+    ],
+    "active": true,
+    "description": "Avalehe sisuväljad.",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1786457305
+}

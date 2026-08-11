@@ -100,6 +100,32 @@ function avallone_enqueue_styles() {
 add_action( 'wp_enqueue_scripts', 'avallone_enqueue_styles' );
 
 /**
+ * Enqueue page-specific stylesheets.
+ *
+ * Page styles load only where they are used, so the global bundle stays the
+ * same size on every other template. Registered after the last shared layer so
+ * a page can build on the components without raising specificity.
+ *
+ * @return void
+ */
+function avallone_enqueue_page_styles() {
+	if ( ! is_front_page() ) {
+		return;
+	}
+
+	$layers        = avallone_style_layers();
+	$relative_path = 'assets/css/pages/front-page.css';
+
+	wp_enqueue_style(
+		'avallone-front-page',
+		AVALLONE_URI . '/' . $relative_path,
+		array( (string) array_key_last( $layers ) ),
+		avallone_asset_version( $relative_path )
+	);
+}
+add_action( 'wp_enqueue_scripts', 'avallone_enqueue_page_styles' );
+
+/**
  * Enqueue front-end scripts.
  *
  * Vanilla JavaScript with no dependencies, deferred so it never blocks render.
