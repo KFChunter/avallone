@@ -25,5 +25,6 @@ define( 'AVALLONE_URI', get_template_directory_uri() );
 require_once AVALLONE_DIR . '/inc/setup.php';
 require_once AVALLONE_DIR . '/inc/enqueue.php';
 require_once AVALLONE_DIR . '/inc/icons.php';
+require_once AVALLONE_DIR . '/inc/svg.php';
 require_once AVALLONE_DIR . '/inc/acf.php';
 require_once AVALLONE_DIR . '/inc/woocommerce.php';
