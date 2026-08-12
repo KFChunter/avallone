@@ -102,7 +102,7 @@ $avallone_quick    = avallone_product_data_rows( $avallone_product, avallone_pro
 			<?php foreach ( $avallone_quick as $avallone_item ) : ?>
 				<li class="product-summary__quick-item">
 					<span class="product-summary__quick-icon" aria-hidden="true">
-						<?php avallone_icon( $avallone_item['icon'], array( 'size' => 18 ) ); ?>
+						<?php avallone_icon( $avallone_item['icon'], array( 'size' => 24 ) ); ?>
 					</span>
 					<span class="product-summary__quick-label"><?php echo esc_html( $avallone_item['label'] ); ?></span>
 					<span class="product-summary__quick-value"><?php echo esc_html( $avallone_item['value'] ); ?></span>
