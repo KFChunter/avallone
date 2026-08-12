@@ -1639,3 +1639,132 @@
 		margin-block-end: var(--space-sm);
 	}
 }
+
+/* ==========================================================================
+   BLOGI
+   ========================================================================== */
+
+/*
+ * The one grid on the page that uses the wide global gutter — the design sets
+ * these three cards much further apart than the product and category grids.
+ */
+.home-blog__grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: var(--space-lg) var(--grid-gap);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.home-blog__item {
+	min-width: 0;
+}
+
+.blog-card {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xs);
+}
+
+.blog-card__media {
+	display: block;
+	overflow: hidden;
+	aspect-ratio: 23 / 20;
+	border-radius: var(--radius-button);
+	background-color: var(--color-surface-light);
+}
+
+.blog-card__image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.blog-card__meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 4px var(--space-xs);
+	margin: 0;
+	margin-block-start: var(--space-xs);
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 11px;
+	line-height: 16px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.blog-card__category {
+	color: var(--color-primary);
+}
+
+.blog-card__date {
+	font-weight: 500;
+	color: var(--color-text);
+	opacity: 0.75;
+}
+
+.blog-card__title {
+	margin: 0;
+	font-family: var(--font-heading);
+	/* The global h3 is italic; article headlines are upright. */
+	font-style: normal;
+	font-weight: 400;
+	font-size: 22px;
+	line-height: 1.4;
+	color: var(--color-ink);
+}
+
+.blog-card__title a {
+	color: inherit;
+	text-decoration: none;
+	transition: color var(--transition-base);
+}
+
+.blog-card__title a:hover {
+	color: var(--color-primary);
+}
+
+/*
+ * Two lines, as in the design. line-clamp needs the -webkit- prefixed box
+ * properties, which every current engine still implements.
+ */
+.blog-card__excerpt {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	overflow: hidden;
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 13px;
+	line-height: 1.55;
+	color: var(--color-text);
+}
+
+/*
+ * Three columns below 1024 would leave each card about 200px wide, which is too
+ * narrow for a 22px serif headline — the titles ran to three lines and the meta
+ * row wrapped. Two columns from here down, with the third card starting a new
+ * row.
+ */
+@media (max-width: 1023px) {
+	.home-blog__grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--space-lg);
+	}
+}
+
+@media (max-width: 767px) {
+	.home-blog__grid {
+		grid-template-columns: 1fr;
+		gap: var(--space-lg);
+	}
+
+	/* One per row, so the tall crop gives way to a landscape one. */
+	.blog-card__media {
+		aspect-ratio: 16 / 10;
+	}
+}

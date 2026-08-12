@@ -21,5 +21,6 @@ get_template_part( 'template-parts/home/mega-diil' );
 get_template_part( 'template-parts/home/brandid' );
 get_template_part( 'template-parts/home/populaarsed' );
 get_template_part( 'template-parts/home/kokteilid' );
+get_template_part( 'template-parts/home/blogi' );
 
 get_footer();
