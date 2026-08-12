@@ -1165,3 +1165,147 @@
 		font-size: 48px;
 	}
 }
+
+/* ==========================================================================
+   MEGA DIIL
+
+   UI final shows four equally sized portrait tiles with alternating vertical
+   offset — not the large/medium/small/small of the generated source. The ACF
+   slot names describe position, not size.
+   ========================================================================== */
+
+.home-deal__grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-md);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.home-deal__item {
+	min-width: 0;
+}
+
+.home-deal__tile {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	/* Landscape on mobile: a full-width portrait tile would be ~550px tall and
+	   push the section past 2500px. Portrait returns once tiles share a row. */
+	aspect-ratio: 16 / 10;
+	border-radius: var(--radius-button);
+	background-color: var(--color-surface-mid);
+	text-decoration: none;
+	transition: box-shadow var(--transition-base);
+}
+
+.home-deal__tile:hover {
+	box-shadow: var(--shadow-lg);
+}
+
+.home-deal__image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	transition: transform var(--transition-slow);
+}
+
+.home-deal__tile:hover .home-deal__image {
+	transform: scale(1.03);
+}
+
+/* Gradient only where the label sits, so the photograph stays readable. */
+.home-deal__tile::after {
+	content: '';
+	position: absolute;
+	inset: auto 0 0 0;
+	height: 60%;
+	background: linear-gradient(
+		180deg,
+		transparent 0%,
+		color-mix(in srgb, var(--color-ink) 72%, transparent) 100%
+	);
+}
+
+.home-deal__body {
+	position: absolute;
+	inset: auto 0 0 0;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	padding: var(--space-sm);
+}
+
+.home-deal__count {
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 10px;
+	line-height: 14px;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: color-mix(in srgb, var(--color-cream) 75%, transparent);
+}
+
+.home-deal__name {
+	font-family: var(--font-heading);
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 26px;
+	color: var(--color-cream);
+}
+
+/* A category with no thumbnail falls back to a brand surface rather than a
+   fabricated image; its label needs dark text instead. */
+.home-deal__tile--plain {
+	background-color: var(--color-surface-mid);
+}
+
+.home-deal__tile--plain::after {
+	display: none;
+}
+
+.home-deal__tile--plain .home-deal__count {
+	color: var(--color-text);
+}
+
+.home-deal__tile--plain .home-deal__name {
+	color: var(--color-ink);
+}
+
+@media (min-width: 768px) {
+
+	.home-deal__grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-md);
+		align-items: start;
+	}
+
+	.home-deal__tile {
+		aspect-ratio: 79 / 100;
+	}
+
+	/* The stagger begins here: every second tile drops, keeping the reference's
+	   rhythm without squeezing four columns into a tablet. */
+	.home-deal__item:nth-child(even) {
+		margin-top: var(--space-lg);
+	}
+
+	.home-deal__name {
+		font-size: 22px;
+	}
+}
+
+@media (min-width: 1024px) {
+
+	.home-deal__grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+
+	.home-deal__item:nth-child(even) {
+		margin-top: var(--space-2xl);
+	}
+}

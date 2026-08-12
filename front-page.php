@@ -17,5 +17,6 @@ get_header();
 get_template_part( 'template-parts/home/hero' );
 get_template_part( 'template-parts/home/uued-tooted' );
 get_template_part( 'template-parts/home/banner' );
+get_template_part( 'template-parts/home/mega-diil' );
 
 get_footer();
