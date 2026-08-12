@@ -746,8 +746,7 @@
 	align-items: flex-start;
 	gap: var(--space-md);
 	padding: var(--space-md);
-	/* Figma #F7F0EF — a rose-tinted wash of the page surface. */
-	background-color: color-mix(in srgb, var(--color-rose) 15%, var(--color-cream));
+	background-color: var(--color-surface-rose);
 }
 
 .catalog-promo--gift .catalog-promo__label {
