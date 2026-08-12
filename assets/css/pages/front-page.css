@@ -563,3 +563,450 @@
 		padding: 25px;
 	}
 }
+
+/* ==========================================================================
+   SHARED HOMEPAGE SECTION FURNITURE
+   --------------------------------------------------------------------------
+   Every section below the hero shares the same rhythm: a heading row with an
+   optional "see all" action on the right, then the section's own content.
+   ========================================================================== */
+
+.home-section {
+	padding-block: var(--space-2xl);
+}
+
+.home-section__head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--space-md);
+	margin-bottom: var(--space-lg);
+	padding-bottom: var(--space-md);
+	border-bottom: 1px solid var(--color-border);
+}
+
+/* Section titles are a homepage size; the global .type-h2 scale is unchanged. */
+.home-section__title {
+	margin: 0;
+	font-family: var(--font-heading);
+	font-weight: 400;
+	font-size: 28px;
+	line-height: 1.2;
+	color: var(--color-ink);
+}
+
+.home-section__more {
+	flex-shrink: 0;
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-text);
+	text-decoration: none;
+	transition: color var(--transition-base);
+}
+
+.home-section__more:hover {
+	color: var(--color-primary);
+}
+
+/* ==========================================================================
+   PRODUCT CARD (shared: Uued tooted stack + Populaarsed grid)
+   ========================================================================== */
+
+.product-card {
+	display: flex;
+	min-width: 0;
+	background-color: var(--color-cream);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-button);
+	overflow: hidden;
+	transition:
+		border-color var(--transition-base),
+		box-shadow var(--transition-base);
+}
+
+.product-card:hover {
+	border-color: var(--color-rose);
+	box-shadow: var(--shadow-sm);
+}
+
+.product-card__media {
+	position: relative;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--color-surface-light);
+}
+
+/* contain, never cover — bottle photography is never cropped. */
+.product-card__image {
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
+	height: auto;
+	object-fit: contain;
+}
+
+.product-card__badge {
+	position: absolute;
+	top: var(--space-xs);
+	left: var(--space-xs);
+	padding: 2px 8px;
+	border-radius: var(--radius-sm);
+	background-color: var(--color-primary);
+	color: var(--color-on-dark);
+	font-family: var(--font-ui);
+	font-weight: 700;
+	font-size: 11px;
+	line-height: 18px;
+}
+
+.product-card__body {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	min-width: 0;
+	padding: var(--space-sm);
+}
+
+.product-card__origin {
+	margin: 0;
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 10px;
+	line-height: 14px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-text);
+}
+
+.product-card__title {
+	margin: 0;
+	font-family: var(--font-heading);
+	/* The global h3 (.type-h3) is italic; product names are upright. */
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 22px;
+	color: var(--color-ink);
+}
+
+.product-card__title a {
+	color: inherit;
+	text-decoration: none;
+	transition: color var(--transition-base);
+}
+
+.product-card__title a:hover {
+	color: var(--color-primary);
+}
+
+.product-card__price {
+	display: flex;
+	align-items: baseline;
+	gap: 6px;
+	margin: 0;
+	flex-wrap: wrap;
+}
+
+.product-card__price-value {
+	font-family: var(--font-ui);
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 22px;
+	color: var(--color-primary-dark);
+}
+
+.product-card__price-value del {
+	margin-right: 4px;
+	font-size: 12px;
+	font-weight: 500;
+	color: var(--color-text);
+	opacity: 0.7;
+}
+
+.product-card__price-value ins {
+	text-decoration: none;
+}
+
+.product-card__volume {
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 11px;
+	color: var(--color-text);
+	opacity: 0.6;
+}
+
+.product-card__cart {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	align-self: flex-start;
+	margin-top: var(--space-xs);
+	min-height: 34px;
+	padding: 6px 14px;
+	border-radius: var(--radius-button);
+	background-color: var(--color-primary);
+	color: var(--color-on-dark);
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 11px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	text-decoration: none;
+	transition: background-color var(--transition-base);
+}
+
+.product-card__cart:hover {
+	background-color: var(--color-primary-dark);
+	color: var(--color-on-dark);
+}
+
+.product-card__cart--link {
+	background-color: transparent;
+	border: 1px solid var(--color-primary);
+	color: var(--color-primary);
+}
+
+.product-card__cart--link:hover {
+	background-color: var(--color-primary-wash);
+	color: var(--color-primary);
+}
+
+/* WooCommerce appends its own view-cart link after a successful AJAX add. */
+.product-card .added_to_cart {
+	margin-top: 4px;
+	font-family: var(--font-meta);
+	font-size: 11px;
+	color: var(--color-text);
+}
+
+/* Stack variant: image beside the text, used next to the featured product. */
+.product-card--stack {
+	flex-direction: row;
+	align-items: stretch;
+}
+
+.product-card--stack .product-card__media {
+	width: 104px;
+	padding: var(--space-xs);
+}
+
+.product-card--stack .product-card__body {
+	flex: 1 1 auto;
+	justify-content: center;
+}
+
+/* Grid variant: image above the text, used four-up. */
+.product-card--grid {
+	flex-direction: column;
+}
+
+.product-card--grid .product-card__media {
+	width: 100%;
+	height: 220px;
+	padding: var(--space-sm);
+}
+
+/* ==========================================================================
+   UUED TOOTED
+   ========================================================================== */
+
+.home-new__layout {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-lg);
+}
+
+.home-new__lead {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+	padding: var(--space-md);
+	background-color: var(--color-cream);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-button);
+}
+
+.home-new__lead-media {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 260px;
+	background-color: var(--color-surface-light);
+	border-radius: var(--radius-sm);
+}
+
+.home-new__lead-image {
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
+	height: auto;
+	object-fit: contain;
+}
+
+.home-new__lead-body {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--space-xs);
+}
+
+.home-new__lead-origin {
+	margin: 0;
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 11px;
+	line-height: 16px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-text);
+}
+
+.home-new__lead-title {
+	margin: 0;
+	font-family: var(--font-heading);
+	font-style: normal;
+	font-weight: 400;
+	font-size: 24px;
+	line-height: 32px;
+	color: var(--color-ink);
+}
+
+.home-new__lead-title a {
+	color: inherit;
+	text-decoration: none;
+	transition: color var(--transition-base);
+}
+
+.home-new__lead-title a:hover {
+	color: var(--color-primary);
+}
+
+.home-new__lead-price {
+	display: flex;
+	align-items: baseline;
+	gap: var(--space-xs);
+	margin: 0;
+	flex-wrap: wrap;
+}
+
+.home-new__lead-price-value {
+	font-family: var(--font-ui);
+	font-weight: 700;
+	font-size: 22px;
+	line-height: 30px;
+	color: var(--color-primary-dark);
+}
+
+.home-new__lead-price-value del {
+	margin-right: 6px;
+	font-size: 15px;
+	font-weight: 500;
+	color: var(--color-text);
+	opacity: 0.7;
+}
+
+.home-new__lead-price-value ins {
+	text-decoration: none;
+}
+
+.home-new__lead-volume {
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 12px;
+	color: var(--color-text);
+	opacity: 0.6;
+}
+
+.home-new__lead-cart {
+	margin-top: var(--space-xs);
+	font-size: 13px;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	padding: 16px 32px;
+}
+
+.home-new__stack {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-md);
+	align-content: start;
+}
+
+@media (min-width: 768px) {
+
+	.home-section__title {
+		font-size: 36px;
+	}
+
+	.home-new__lead {
+		flex-direction: row;
+		align-items: center;
+		gap: var(--space-lg);
+		padding: var(--space-lg);
+	}
+
+	.home-new__lead-media {
+		flex: 0 0 42%;
+		height: 320px;
+	}
+
+	.home-new__lead-body {
+		flex: 1 1 auto;
+	}
+
+	.home-new__stack {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1024px) {
+
+	.home-section {
+		padding-block: var(--space-3xl);
+	}
+
+	/* Figma: featured product across roughly seven columns, stack across five. */
+	.home-new__layout {
+		grid-template-columns: 7fr 5fr;
+		gap: var(--space-md);
+		align-items: stretch;
+	}
+
+	/* Equal rows so the two cards together match the featured product's height,
+	   as in the reference, rather than sitting at the top of an empty column. */
+	.home-new__stack {
+		grid-template-columns: 1fr;
+		grid-auto-rows: 1fr;
+	}
+
+	.home-new__stack .product-card--stack .product-card__media {
+		width: 132px;
+	}
+
+	.home-new__lead-media {
+		height: 360px;
+	}
+}
+
+@media (min-width: 1280px) {
+
+	.home-section__title {
+		font-size: 48px;
+	}
+
+	.home-new__lead-media {
+		height: 420px;
+	}
+
+	.home-new__lead-title {
+		font-size: 28px;
+		line-height: 36px;
+	}
+}

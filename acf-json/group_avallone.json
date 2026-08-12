@@ -71,7 +71,7 @@
             "name": "hero_heading",
             "aria-label": "",
             "type": "text",
-            "instructions": "Hero peamine pealkiri. Näiteks: Curated Heritage &amp; Global Excellence.",
+            "instructions": "Hero peamine pealkiri.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -91,7 +91,7 @@
             "name": "hero_heading_accent",
             "aria-label": "",
             "type": "text",
-            "instructions": "Pealkirja teine rida, mis kuvatakse kursiivis ja punases toonis. Näiteks: Fireside Pairings",
+            "instructions": "Pealkirja teine rida, mis kuvatakse kursiivis ja punases toonis.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -258,14 +258,809 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_avallone_new_tab",
+            "label": "Avaleht — Uued tooted",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_avallone_new_mode",
+            "label": "Valikurežiim",
+            "name": "new_mode",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "Automaatne režiim kuvab alati kolm kõige uuemat toodet.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "auto": "Automaatselt — uusimad tooted",
+                "manual": "Käsitsi valitud tooted"
+            },
+            "default_value": "auto",
+            "layout": "vertical",
+            "return_format": "value",
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "allow_null": 0
+        },
+        {
+            "key": "field_avallone_new_products",
+            "label": "Vali tooted",
+            "name": "new_products",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "Vali kolm toodet. Järjekord on oluline: 1. toode kuvatakse suurena vasakul, 2. ja 3. väiksemana paremal.",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_avallone_new_mode",
+                        "operator": "==",
+                        "value": "manual"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "product"
+            ],
+            "filters": [
+                "search"
+            ],
+            "return_format": "id",
+            "min": 0,
+            "max": 3,
+            "taxonomy": [],
+            "elements": [],
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_avallone_new_link",
+            "label": "\"Vaata kõiki\" link",
+            "name": "new_link",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Jäta tühjaks, et kasutada automaatselt e-poe lehte.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_avallone_banner_tab",
+            "label": "Avaleht — Banner",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_avallone_banner_image",
+            "label": "Taustapilt",
+            "name": "banner_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Lai taustapilt. Soovitatav laius vähemalt 1920px.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "mime_types": "jpg,jpeg,png,webp",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0
+        },
+        {
+            "key": "field_avallone_banner_icon",
+            "label": "Ikoon",
+            "name": "banner_icon",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Väike ikoon pealkirja kohal.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "award": "Kvaliteedimärk",
+                "wine": "Veiniklaas",
+                "sparkle": "Sära",
+                "globe": "Maakera",
+                "grape": "Viinamarjad"
+            },
+            "default_value": "award",
+            "allow_null": 1,
+            "ui": 1,
+            "return_format": "value",
+            "multiple": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_avallone_banner_title",
+            "label": "Pealkiri",
+            "name": "banner_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_banner_text",
+            "label": "Tekst",
+            "name": "banner_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "new_lines": "",
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_avallone_banner_label",
+            "label": "Väike märgis",
+            "name": "banner_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Valikuline. Kuvatakse väikeses kirjas teksti all.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_banner_cta",
+            "label": "Nupp",
+            "name": "banner_cta",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Jäta tühjaks, kui nuppu pole vaja.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_avallone_deal_tab",
+            "label": "Avaleht — Mega diil",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_avallone_deal_note",
+            "label": "",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Vali neli tootekategooriat. Kategooria nimi, pilt ja link võetakse automaatselt WooCommerce'ist — pildi saad määrata kategooria enda seadetes.",
+            "esc_html": 0,
+            "new_lines": ""
+        },
+        {
+            "key": "field_avallone_deal_cat_large",
+            "label": "Suur kategooria",
+            "name": "deal_cat_large",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "product_cat",
+            "field_type": "select",
+            "return_format": "id",
+            "allow_null": 1,
+            "multiple": 0,
+            "add_term": 0,
+            "save_terms": 0,
+            "load_terms": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_avallone_deal_cat_medium",
+            "label": "Keskmine kategooria",
+            "name": "deal_cat_medium",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "product_cat",
+            "field_type": "select",
+            "return_format": "id",
+            "allow_null": 1,
+            "multiple": 0,
+            "add_term": 0,
+            "save_terms": 0,
+            "load_terms": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_avallone_deal_cat_small_1",
+            "label": "Väike kategooria 1",
+            "name": "deal_cat_small_1",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "product_cat",
+            "field_type": "select",
+            "return_format": "id",
+            "allow_null": 1,
+            "multiple": 0,
+            "add_term": 0,
+            "save_terms": 0,
+            "load_terms": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_avallone_deal_cat_small_2",
+            "label": "Väike kategooria 2",
+            "name": "deal_cat_small_2",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "product_cat",
+            "field_type": "select",
+            "return_format": "id",
+            "allow_null": 1,
+            "multiple": 0,
+            "add_term": 0,
+            "save_terms": 0,
+            "load_terms": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_avallone_deal_link",
+            "label": "\"Kõik pakkumised\" link",
+            "name": "deal_link",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Jäta tühjaks, et kasutada automaatselt e-poe lehte.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_avallone_brands_tab",
+            "label": "Avaleht — Brändid",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_avallone_brands_terms",
+            "label": "Vali brändid",
+            "name": "brands_terms",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "Vali brändid, mille logod avalehel kuvatakse. Logo lisatakse brändi enda seadetes. Kui ühtegi brändi pole valitud, jäetakse plokk vahele.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "product_brand",
+            "field_type": "multi_select",
+            "return_format": "id",
+            "allow_null": 1,
+            "multiple": 1,
+            "add_term": 0,
+            "save_terms": 0,
+            "load_terms": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_avallone_popular_tab",
+            "label": "Avaleht — Populaarsed tooted",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_avallone_popular_mode",
+            "label": "Valikurežiim",
+            "name": "popular_mode",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "Automaatne režiim kuvab enimmüüdud tooted.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "auto": "Automaatselt — populaarsuse järgi",
+                "manual": "Käsitsi valitud tooted"
+            },
+            "default_value": "auto",
+            "layout": "vertical",
+            "return_format": "value",
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "allow_null": 0
+        },
+        {
+            "key": "field_avallone_popular_products",
+            "label": "Vali tooted",
+            "name": "popular_products",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "Vali kuni neli toodet. Kuvamise järjekord on sama, mis valiku järjekord.",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_avallone_popular_mode",
+                        "operator": "==",
+                        "value": "manual"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "product"
+            ],
+            "filters": [
+                "search"
+            ],
+            "return_format": "id",
+            "min": 0,
+            "max": 4,
+            "taxonomy": [],
+            "elements": [],
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_avallone_popular_link",
+            "label": "\"Vaata kõiki\" link",
+            "name": "popular_link",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Jäta tühjaks, et kasutada automaatselt e-poe lehte.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_avallone_cocktail_tab",
+            "label": "Avaleht — Kokteilid",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_avallone_cocktail_image_large",
+            "label": "Suur pilt",
+            "name": "cocktail_image_large",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_avallone_cocktail_title_large",
+            "label": "Suure pildi pealkiri",
+            "name": "cocktail_title_large",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_cocktail_badge_large",
+            "label": "Suure pildi märgis",
+            "name": "cocktail_badge_large",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Valikuline väike silt pealkirja kohal.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_cocktail_image_1",
+            "label": "Väike pilt 1",
+            "name": "cocktail_image_1",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_avallone_cocktail_title_1",
+            "label": "Väikese pildi 1 pealkiri",
+            "name": "cocktail_title_1",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_cocktail_image_2",
+            "label": "Väike pilt 2",
+            "name": "cocktail_image_2",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_avallone_cocktail_title_2",
+            "label": "Väikese pildi 2 pealkiri",
+            "name": "cocktail_title_2",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_cocktail_quote",
+            "label": "Tsitaat",
+            "name": "cocktail_quote",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "new_lines": "",
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_avallone_cocktail_quote_author",
+            "label": "Tsitaadi autor",
+            "name": "cocktail_quote_author",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_cocktail_link",
+            "label": "Kokteilide leht",
+            "name": "cocktail_link",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Vali leht, kuhu \"Kõik kokteilid\" nupp viib. Kui leht puudub, jäetakse nupp kuvamata.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_avallone_page_tab",
+            "label": "Lehe seaded",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_avallone_page_show_newsletter",
+            "label": "Näita uudiskirja plokki",
+            "name": "page_show_newsletter",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Kui aktiivne, kuvatakse lehe lõpus enne jalust uudiskirjaga liitumise plokk.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Jah",
+            "ui_off_text": "Ei",
+            "message": ""
         }
     ],
     "location": [
         [
             {
-                "param": "page_type",
+                "param": "post_type",
                 "operator": "==",
-                "value": "front_page"
+                "value": "page"
             }
         ]
     ],
@@ -275,16 +1070,15 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": [
-        "the_content",
         "custom_fields",
         "discussion",
         "comments"
     ],
     "active": true,
-    "description": "Avalehe sisuväljad.",
+    "description": "Avalehe sisuväljad ja lehe seaded.",
     "show_in_rest": 0,
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1786457305
+    "modified": 1786547525
 }
