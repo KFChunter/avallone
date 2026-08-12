@@ -721,6 +721,17 @@
 	color: var(--color-primary-dark);
 }
 
+/*
+ * WooCommerce separates thousands with a plain space, so a narrow card would
+ * otherwise break "4 500,00 €" after the "4". Each amount stays on one line and
+ * the old and new price wrap against each other instead.
+ */
+.product-card__price-value del,
+.product-card__price-value ins,
+.product-card__price-value .woocommerce-Price-amount {
+	white-space: nowrap;
+}
+
 .product-card__price-value del {
 	margin-right: 4px;
 	font-size: 12px;
@@ -811,6 +822,19 @@
 	width: 100%;
 	height: 220px;
 	padding: var(--space-sm);
+}
+
+.product-card--grid .product-card__body {
+	flex: 1 1 auto;
+}
+
+/*
+ * Product names run to one or two lines, which would otherwise leave each
+ * card's price and cart button at a different height across the row. Collecting
+ * the slack after the title lines the prices and buttons up along the grid.
+ */
+.product-card--grid .product-card__title {
+	margin-bottom: auto;
 }
 
 /* ==========================================================================
@@ -1412,5 +1436,22 @@
 
 	.home-brands__logo {
 		max-height: 48px;
+	}
+}
+
+/* ==========================================================================
+   POPULAARSED TOOTED
+   ========================================================================== */
+
+.home-popular__grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--space-md);
+}
+
+@media (min-width: 1024px) {
+
+	.home-popular__grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
 	}
 }

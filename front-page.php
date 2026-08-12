@@ -19,5 +19,6 @@ get_template_part( 'template-parts/home/uued-tooted' );
 get_template_part( 'template-parts/home/banner' );
 get_template_part( 'template-parts/home/mega-diil' );
 get_template_part( 'template-parts/home/brandid' );
+get_template_part( 'template-parts/home/populaarsed' );
 
 get_footer();
