@@ -26,7 +26,7 @@ if ( ! $avallone_product instanceof WC_Product ) {
 	return;
 }
 
-$avallone_region = avallone_product_attribute( $avallone_product, array( 'pa_paritolu', 'Päritolu', 'paritolu', 'Origin' ) );
+$avallone_region = avallone_product_origin( $avallone_product );
 $avallone_volume = avallone_product_attribute( $avallone_product, array( 'pa_maht', 'Maht', 'maht', 'Volume' ) );
 $avallone_link   = $avallone_product->get_permalink();
 $avallone_image  = $avallone_product->get_image_id();
