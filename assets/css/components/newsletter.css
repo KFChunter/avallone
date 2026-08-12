@@ -1,0 +1,125 @@
+/* ==========================================================================
+   NEWSLETTER
+
+   A per-page opt-in band that sits between the page content and the footer.
+   Loaded only where the band is shown (see inc/newsletter.php).
+   ========================================================================== */
+
+.newsletter {
+	background-color: var(--color-surface-light);
+	padding-block: var(--space-lg);
+}
+
+.newsletter__inner {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-md) var(--space-lg);
+}
+
+.newsletter__text {
+	margin: 0;
+	font-family: var(--font-display);
+	font-style: italic;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 1.5;
+	color: var(--color-text);
+}
+
+.newsletter__form {
+	flex-shrink: 0;
+	width: 100%;
+	max-width: 326px;
+}
+
+/*
+ * The input and the submit share one underlined row, so the rule belongs to
+ * the wrapper rather than to either control.
+ */
+.newsletter__field {
+	display: flex;
+	align-items: baseline;
+	gap: var(--space-md);
+	padding-block-end: var(--space-xs);
+	border-block-end: 1px solid color-mix(in srgb, var(--color-text) 60%, transparent);
+}
+
+/*
+ * A bare field, not the theme's boxed input. forms.css targets these controls
+ * as input[type='email'] — an element-plus-attribute selector, which outranks a
+ * single class — so the reset is scoped through the wrapper to win on
+ * specificity rather than with !important.
+ */
+.newsletter__field .newsletter__input {
+	flex: 1 1 auto;
+	min-width: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+	background-color: transparent;
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 15px;
+	line-height: 20px;
+	color: var(--color-text);
+}
+
+.newsletter__input::placeholder {
+	color: var(--color-input-placeholder);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	opacity: 1;
+}
+
+/*
+ * The shared focus style is a border-colour change plus a soft ring, which
+ * says nothing on a control that has no border. A real outline replaces it —
+ * and unlike a box-shadow it survives Windows High Contrast Mode, which is why
+ * forms.css keeps a transparent outline in the first place.
+ */
+.newsletter__field .newsletter__input:focus-visible {
+	box-shadow: none;
+	outline: 2px solid var(--color-primary);
+	outline-offset: 4px;
+}
+
+/* A quieter affordance for the whole row, alongside the control's own ring. */
+.newsletter__field:focus-within {
+	border-block-end-color: var(--color-primary);
+}
+
+.newsletter__submit {
+	flex-shrink: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 15px;
+	line-height: 20px;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--color-primary-dark);
+	cursor: pointer;
+	transition: color var(--transition-base);
+}
+
+.newsletter__submit:hover {
+	color: var(--color-primary);
+}
+
+/*
+ * Below this the copy and the form no longer share a line, and a form still
+ * capped at its desktop width would sit stranded at the left of its own row.
+ */
+@media (max-width: 1279px) {
+	.newsletter__inner {
+		align-items: stretch;
+	}
+
+	.newsletter__form {
+		max-width: none;
+	}
+}
