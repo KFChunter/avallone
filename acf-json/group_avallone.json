@@ -1017,6 +1017,432 @@
             "return_format": "array"
         },
         {
+            "key": "field_avallone_vein_tab_catalog",
+            "label": "Vein — kataloog",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_avallone_vein_category",
+            "label": "Tootekategooria",
+            "name": "vein_category",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "Vali WooCommerce'i tootekategooria, mille tooteid sellel lehel kuvatakse.",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "product_cat",
+            "field_type": "select",
+            "add_term": 0,
+            "save_terms": 0,
+            "load_terms": 0,
+            "return_format": "id",
+            "multiple": 0,
+            "allow_null": 1,
+            "ui": 1,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_avallone_vein_eyebrow",
+            "label": "Ülapealkiri",
+            "name": "vein_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Väike tekst pealkirja kohal.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Avallone tootevalik",
+            "maxlength": 60,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_vein_intro",
+            "label": "Sissejuhatus",
+            "name": "vein_intro",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Lühike tutvustav lõik pealkirja all. Lehe pealkiri (H1) tuleb lehe enda pealkirjast.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "new_lines": "",
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_avallone_vein_tab_promos",
+            "label": "Vein — reklaamiplokid",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_avallone_vein_spotlight_show",
+            "label": "Näita tootja fookuse plokki",
+            "name": "vein_spotlight_show",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Punane plokk toodete vahel.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "Jah",
+            "ui_off_text": "Ei",
+            "message": ""
+        },
+        {
+            "key": "field_avallone_vein_spotlight_label",
+            "label": "Märgis",
+            "name": "vein_spotlight_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Väike tekst pealkirja kohal, nt „Tootja fookuses“.",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_avallone_vein_spotlight_show",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "maxlength": 40,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_vein_spotlight_title",
+            "label": "Pealkiri",
+            "name": "vein_spotlight_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_avallone_vein_spotlight_show",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_vein_spotlight_text",
+            "label": "Kirjeldus",
+            "name": "vein_spotlight_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_avallone_vein_spotlight_show",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "new_lines": "",
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_avallone_vein_spotlight_link",
+            "label": "Nupp",
+            "name": "vein_spotlight_link",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Kui linki ei ole valitud, jäetakse nupp välja.",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_avallone_vein_spotlight_show",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_avallone_vein_spotlight_image",
+            "label": "Pilt",
+            "name": "vein_spotlight_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Läbipaistva taustaga tootepilt.",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_avallone_vein_spotlight_show",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_avallone_vein_gift_show",
+            "label": "Näita kinkekomplektide plokki",
+            "name": "vein_gift_show",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Lai plokk toodete vahel.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "Jah",
+            "ui_off_text": "Ei",
+            "message": ""
+        },
+        {
+            "key": "field_avallone_vein_gift_label",
+            "label": "Märgis",
+            "name": "vein_gift_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_avallone_vein_gift_show",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "maxlength": 40,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_vein_gift_title",
+            "label": "Pealkiri",
+            "name": "vein_gift_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_avallone_vein_gift_show",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_vein_gift_text",
+            "label": "Kirjeldus",
+            "name": "vein_gift_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_avallone_vein_gift_show",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "new_lines": "",
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_avallone_vein_gift_images",
+            "label": "Pildid",
+            "name": "vein_gift_images",
+            "aria-label": "",
+            "type": "gallery",
+            "instructions": "Vali kuni 3 pilti.",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_avallone_vein_gift_show",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "thumbnail",
+            "insert": "append",
+            "library": "all",
+            "max": 3,
+            "min": 0,
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_avallone_vein_gift_link",
+            "label": "Nupp",
+            "name": "vein_gift_link",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Kui linki ei ole valitud, jäetakse nupp välja.",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_avallone_vein_gift_show",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
             "key": "field_avallone_page_tab",
             "label": "Lehe seaded",
             "name": "",
@@ -1080,5 +1506,6 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1786547525
+    "modified": 1786559251,
+    "local_file": "\/var\/www\/html\/avallone-veeb\/wp-content\/themes\/avallone\/acf-json\/group_avallone.json"
 }

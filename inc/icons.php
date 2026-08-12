@@ -27,6 +27,10 @@ function avallone_icon_set() {
 		'menu'   => '<path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/>',
 		'close'  => '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
 
+		// Catalogue filter controls.
+		'chevron-down' => '<path d="m6 9 6 6 6-6"/>',
+		'sliders'      => '<path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><path d="M1 14h6"/><path d="M9 8h6"/><path d="M17 16h6"/>',
+
 		// Editorial marks offered by the banner's icon selector.
 		'award'   => '<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/>',
 		'wine'    => '<path d="M8 22h8"/><path d="M7 10h10"/><path d="M12 15v7"/><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"/>',

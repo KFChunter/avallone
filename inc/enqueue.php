@@ -109,19 +109,65 @@ add_action( 'wp_enqueue_scripts', 'avallone_enqueue_styles' );
  * @return void
  */
 function avallone_enqueue_page_styles() {
-	if ( ! is_front_page() ) {
-		return;
+	$layers = avallone_style_layers();
+	$last   = (string) array_key_last( $layers );
+
+	if ( is_front_page() ) {
+		$relative_path = 'assets/css/pages/front-page.css';
+
+		wp_enqueue_style(
+			'avallone-front-page',
+			AVALLONE_URI . '/' . $relative_path,
+			array( $last ),
+			avallone_asset_version( $relative_path )
+		);
 	}
 
-	$layers        = avallone_style_layers();
-	$relative_path = 'assets/css/pages/front-page.css';
+	/*
+	 * The catalogue layer is shared by every catalogue template — Vein first,
+	 * then the rest — so it loads for any of them rather than for one slug.
+	 */
+	if ( avallone_is_catalog_page() ) {
+		$relative_path = 'assets/css/pages/catalog.css';
 
-	wp_enqueue_style(
-		'avallone-front-page',
-		AVALLONE_URI . '/' . $relative_path,
-		array( (string) array_key_last( $layers ) ),
-		avallone_asset_version( $relative_path )
-	);
+		wp_enqueue_style(
+			'avallone-catalog',
+			AVALLONE_URI . '/' . $relative_path,
+			array( $last ),
+			avallone_asset_version( $relative_path )
+		);
+
+		$script_path = 'assets/js/catalog.js';
+
+		wp_enqueue_script(
+			'avallone-catalog',
+			AVALLONE_URI . '/' . $script_path,
+			array(),
+			avallone_asset_version( $script_path ),
+			array(
+				'strategy'  => 'defer',
+				'in_footer' => true,
+			)
+		);
+
+		wp_localize_script(
+			'avallone-catalog',
+			'avalloneCatalog',
+			array(
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'avallone_catalog' ),
+				'pageId'  => get_queried_object_id(),
+				'i18n'    => array(
+					'loading' => __( 'Laadin…', 'avallone' ),
+					'more'    => __( 'Lae rohkem tooteid', 'avallone' ),
+					'error'   => __( 'Laadimine ebaõnnestus. Proovi uuesti.', 'avallone' ),
+					/* translators: %s: number of products added. */
+					'added'   => __( 'Lisatud %s toodet.', 'avallone' ),
+					'end'     => __( 'Kõik tooted on kuvatud.', 'avallone' ),
+				),
+			)
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'avallone_enqueue_page_styles' );
 

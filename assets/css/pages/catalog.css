@@ -1,0 +1,1162 @@
+/* ==========================================================================
+   PRODUCT CATALOGUE
+   --------------------------------------------------------------------------
+   Shared by every catalogue template — Vein first, then Vahuvein, Kange
+   alkohol and the rest. Nothing here is wine-specific.
+
+   Mobile-first: one column and a filter drawer, widening to the Figma's
+   four-column grid with a horizontal filter bar at 1280.
+
+   Figma-specific measurements (48px image panel padding, 311px cards, the
+   two-column promo span) live here as component values rather than becoming
+   global tokens. Colours are all resolved to the existing token set — the
+   page sits on --color-cream, never white.
+   ========================================================================== */
+
+.catalog {
+	padding-block: var(--space-lg) var(--space-2xl);
+}
+
+/* --------------------------------------------------------------------------
+   HERO
+   -------------------------------------------------------------------------- */
+
+.catalog-hero {
+	margin-bottom: var(--space-lg);
+}
+
+.catalog-hero__eyebrow {
+	margin: 0 0 var(--space-xs);
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: color-mix(in srgb, var(--color-text) 60%, transparent);
+}
+
+/* Catalogue-specific display size. The global heading scale is untouched. */
+.catalog-hero__title {
+	margin: 0 0 var(--space-sm);
+	font-family: var(--font-heading);
+	font-style: normal;
+	font-weight: 400;
+	font-size: 32px;
+	line-height: 1.2;
+	color: var(--color-primary-dark);
+}
+
+.catalog-hero__intro {
+	max-width: 62ch;
+}
+
+.catalog-hero__intro p {
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 16px;
+	line-height: 1.6;
+	color: var(--color-text);
+}
+
+.catalog-hero__intro p + p {
+	margin-block-start: var(--space-sm);
+}
+
+/* --------------------------------------------------------------------------
+   FILTERS — shared
+
+   Every control is a real link or form. The drawer below 1024 and the
+   horizontal bar above it render the same markup, restyled.
+   -------------------------------------------------------------------------- */
+
+.catalog-filters {
+	margin-bottom: var(--space-md);
+}
+
+.catalog-filters__mobile {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-sm);
+	padding-block: var(--space-sm);
+	border-block-start: 1px solid var(--color-surface-mid);
+}
+
+.catalog-filters__trigger {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-xs);
+	padding: 11px 24px;
+	border: 1px solid color-mix(in srgb, var(--color-text) 60%, transparent);
+	border-radius: var(--radius-button);
+	background: none;
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 14px;
+	color: var(--color-ink);
+	cursor: pointer;
+}
+
+.catalog-filters__trigger-count {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 20px;
+	height: 20px;
+	padding-inline: 6px;
+	border-radius: var(--radius-pill);
+	background-color: var(--color-primary);
+	color: var(--color-on-dark);
+	font-size: 11px;
+	font-weight: 700;
+}
+
+.catalog-filters__count {
+	margin: 0;
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 12px;
+	color: color-mix(in srgb, var(--color-text) 60%, transparent);
+}
+
+/* The panel is an ordinary block below the bar until it becomes a drawer. */
+.catalog-filters__panel {
+	border-block-start: 1px solid var(--color-surface-mid);
+	padding-block-start: var(--space-md);
+}
+
+.catalog-filters__drawer-head,
+.catalog-filters__drawer-foot {
+	display: none;
+}
+
+.catalog-filters__bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-md);
+	margin-bottom: var(--space-md);
+}
+
+.catalog-filters__dropdowns {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-sm);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.catalog-filters__dropdown {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-xs);
+	padding: 9px 17px;
+	border: 1px solid color-mix(in srgb, var(--color-text) 60%, transparent);
+	border-radius: var(--radius-button);
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 15px;
+	color: var(--color-ink);
+	text-decoration: none;
+	white-space: nowrap;
+	transition:
+		border-color var(--transition-base),
+		color var(--transition-base);
+}
+
+.catalog-filters__dropdown:hover {
+	border-color: var(--color-primary);
+}
+
+.catalog-filters__dropdown.is-active {
+	border-color: var(--color-primary);
+	color: var(--color-primary-dark);
+	font-weight: 600;
+}
+
+.catalog-filters__dropdown.is-open svg {
+	transform: rotate(180deg);
+}
+
+.catalog-filters__dropdown svg {
+	transition: transform var(--transition-base);
+}
+
+.catalog-filters__count--bar {
+	flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   FILTER GROUP — the expanded panel for one filter
+   -------------------------------------------------------------------------- */
+
+.catalog-filters__group {
+	margin-bottom: var(--space-md);
+}
+
+.catalog-filters__group-title {
+	margin: 0 0 var(--space-sm);
+	font-family: var(--font-heading);
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 1.3;
+	color: var(--color-ink);
+}
+
+.catalog-filters__options {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-xs);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.catalog-filters__option {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 9px 25px;
+	border: 1px solid var(--color-rose);
+	border-radius: var(--radius-button);
+	background-color: var(--color-cream);
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 14px;
+	color: var(--color-ink);
+	text-decoration: none;
+	transition:
+		background-color var(--transition-base),
+		border-color var(--transition-base),
+		color var(--transition-base);
+}
+
+.catalog-filters__option:hover {
+	border-color: var(--color-primary);
+}
+
+.catalog-filters__option.is-selected {
+	border-color: var(--color-primary);
+	background-color: var(--color-primary);
+	color: var(--color-on-dark);
+	font-weight: 700;
+}
+
+/* Price range */
+
+.catalog-filters__price {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	gap: var(--space-sm);
+}
+
+.catalog-filters__price-field {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.catalog-filters__price-field label {
+	margin-bottom: 0;
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 11px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: color-mix(in srgb, var(--color-text) 70%, transparent);
+}
+
+.catalog-filters__price-field input {
+	width: 8rem;
+	padding: 10px 12px;
+	font-size: 15px;
+}
+
+.catalog-filters__price-submit {
+	padding: 11px 24px;
+	border: 1px solid var(--color-primary);
+	border-radius: var(--radius-button);
+	background-color: var(--color-primary);
+	color: var(--color-on-dark);
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 14px;
+	cursor: pointer;
+	transition: background-color var(--transition-base);
+}
+
+.catalog-filters__price-submit:hover {
+	background-color: var(--color-primary-dark);
+}
+
+/* --------------------------------------------------------------------------
+   ACTIVE FILTERS + SORT
+   -------------------------------------------------------------------------- */
+
+.catalog-filters__active {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-sm) var(--space-md);
+	padding-block: var(--space-sm);
+	border-block-start: 1px solid var(--color-surface-mid);
+}
+
+.catalog-filters__active-left {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-xs);
+	min-width: 0;
+}
+
+.catalog-filters__active-label {
+	margin: 0;
+	font-family: var(--font-ui);
+	font-weight: 700;
+	font-size: 12px;
+	color: color-mix(in srgb, var(--color-text) 70%, transparent);
+}
+
+.catalog-filters__chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-xs);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.catalog-filters__chip {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-xs);
+	padding: 5px 13px;
+	border: 1px solid var(--color-rose);
+	border-radius: var(--radius-sm);
+	background-color: var(--color-surface-light);
+	font-family: var(--font-ui);
+	font-size: 12px;
+	color: var(--color-ink);
+	text-decoration: none;
+	transition: border-color var(--transition-base);
+}
+
+.catalog-filters__chip:hover {
+	border-color: var(--color-primary);
+}
+
+.catalog-filters__clear {
+	font-family: var(--font-ui);
+	font-weight: 700;
+	font-size: 12px;
+	color: var(--color-primary);
+	text-decoration: underline;
+}
+
+.catalog-filters__sort {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+	margin-inline-start: auto;
+}
+
+/*
+ * forms.css styles every bare <label> as an uppercase field label. These two
+ * are not field labels in that sense, so the shared treatment is reset rather
+ * than fought with weight.
+ */
+.catalog-filters__sort-label {
+	display: inline;
+	margin: 0;
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 14px;
+	letter-spacing: 0;
+	text-transform: none;
+	color: var(--color-text);
+}
+
+.catalog-filters__sort-select {
+	width: auto;
+	padding: 8px 40px 8px 12px;
+	border-color: transparent;
+	background-color: transparent;
+	font-weight: 700;
+	font-size: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   GRID
+   -------------------------------------------------------------------------- */
+
+.catalog-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-md);
+}
+
+/* Both promos break out of the column rhythm; the spotlight narrows again
+   once there are enough columns for it to sit beside products. */
+.catalog-promo {
+	grid-column: 1 / -1;
+}
+
+/* --------------------------------------------------------------------------
+   PRODUCT CARD
+
+   The theme draws the warm grey panel; product photography is transparent and
+   is contained inside it, never cropped to fill it.
+   -------------------------------------------------------------------------- */
+
+.catalog-card {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.catalog-card__media {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: var(--space-md);
+	/*
+	 * Proportional, not fixed: Figma's 48px sits on a 311px card, so the panel
+	 * keeps that same 15% inset at every column width instead of swallowing a
+	 * narrow card.
+	 */
+	padding: 15%;
+	border-radius: var(--radius-button);
+	background-color: var(--color-surface-light);
+}
+
+/*
+ * The wrapper owns the geometry, so every panel in a row is the same height
+ * whatever shape the bottle is. contain — never cover — keeps the whole
+ * product visible; a magnum and a flute both fit without being cut.
+ */
+.catalog-card__image {
+	display: block;
+	width: 100%;
+	aspect-ratio: 2 / 3;
+	object-fit: contain;
+	object-position: center;
+}
+
+/* Holds the panel's height when a product has no image at all. */
+.catalog-card__media:not(:has(.catalog-card__image))::before {
+	content: '';
+	display: block;
+	width: 100%;
+	aspect-ratio: 2 / 3;
+}
+
+.catalog-card__flag {
+	position: absolute;
+	inset-block-start: var(--space-sm);
+	inset-inline-start: var(--space-sm);
+	padding: 4px 10px;
+	border-radius: var(--radius-pill);
+	background-color: var(--color-ink);
+	color: var(--color-on-dark);
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 11px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.catalog-card__body {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.catalog-card__region {
+	margin: 0 0 4px;
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--color-text);
+}
+
+/*
+ * Clamped to two lines so the cards in a row keep their footers aligned. The
+ * full name stays in the DOM, so the link's accessible name is never truncated.
+ */
+.catalog-card__title {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	overflow: hidden;
+	margin: 0 0 var(--space-sm);
+	min-height: calc(2 * 1.25em);
+	font-family: var(--font-heading);
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 1.25;
+	color: var(--color-ink);
+}
+
+.catalog-card__title a {
+	color: inherit;
+	text-decoration: none;
+	transition: color var(--transition-base);
+}
+
+.catalog-card__title a:hover {
+	color: var(--color-primary);
+}
+
+.catalog-card__footer {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: var(--space-xs);
+	/* Collects the slack, pinning price and button to the card foot. */
+	margin-block-start: auto;
+}
+
+.catalog-card__price {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 4px 8px;
+	margin: 0;
+	min-width: 0;
+}
+
+.catalog-card__price-value {
+	font-family: var(--font-meta);
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 26px;
+	color: var(--color-primary-dark);
+}
+
+/*
+ * WooCommerce separates thousands with a plain space, which would otherwise
+ * break "4 500,00 €" after the "4" on a narrow card.
+ */
+.catalog-card__price-value del,
+.catalog-card__price-value ins,
+.catalog-card__price-value .woocommerce-Price-amount {
+	white-space: nowrap;
+}
+
+.catalog-card__price-value del {
+	margin-inline-end: 4px;
+	font-size: 12px;
+	font-weight: 500;
+	color: var(--color-text);
+	opacity: 0.6;
+}
+
+.catalog-card__price-value ins {
+	text-decoration: none;
+}
+
+.catalog-card__volume {
+	font-family: var(--font-meta);
+	font-size: 11px;
+	color: var(--color-text);
+	opacity: 0.7;
+}
+
+.catalog-card__cart {
+	display: inline-flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	min-height: 36px;
+	padding: 8px 16px;
+	border: 1px solid var(--color-primary);
+	border-radius: var(--radius-button);
+	background-color: var(--color-primary);
+	color: var(--color-on-dark);
+	font-family: var(--font-ui);
+	font-weight: 500;
+	font-size: 12px;
+	text-decoration: none;
+	white-space: nowrap;
+	transition: background-color var(--transition-base);
+}
+
+.catalog-card__cart:hover {
+	background-color: var(--color-primary-dark);
+	border-color: var(--color-primary-dark);
+	color: var(--color-on-dark);
+}
+
+.catalog-card__cart--link {
+	background-color: transparent;
+	color: var(--color-primary-dark);
+}
+
+.catalog-card__cart--link:hover {
+	background-color: var(--color-primary);
+	color: var(--color-on-dark);
+}
+
+/* WooCommerce appends this after an AJAX add; the card already links out. */
+.catalog-card .added_to_cart {
+	display: none;
+}
+
+/* --------------------------------------------------------------------------
+   PROMOS — shared
+   -------------------------------------------------------------------------- */
+
+.catalog-promo {
+	display: flex;
+	min-width: 0;
+	border-radius: var(--radius-button);
+}
+
+.catalog-promo__text {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+	min-width: 0;
+}
+
+.catalog-promo__label {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	margin: 0;
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 11px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.catalog-promo__title {
+	margin: 0;
+	font-family: var(--font-heading);
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1.25;
+}
+
+.catalog-promo__body {
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 15px;
+	line-height: 1.6;
+}
+
+.catalog-promo__cta {
+	align-self: flex-start;
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 14px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   PROMO — producer spotlight
+   -------------------------------------------------------------------------- */
+
+.catalog-promo--spotlight {
+	flex-direction: column;
+	gap: var(--space-md);
+	padding: var(--space-lg);
+	background-color: var(--color-primary-dark);
+	color: var(--color-on-dark);
+}
+
+.catalog-promo--spotlight .catalog-promo__text {
+	flex: 1 1 auto;
+}
+
+/*
+ * --color-rose is the CVI's pink accent, and on this panel it measures 6.97:1
+ * against the red — better than the Figma's own salmon at 6.48:1.
+ */
+.catalog-promo--spotlight .catalog-promo__label,
+.catalog-promo--spotlight .catalog-promo__body {
+	color: var(--color-rose);
+}
+
+.catalog-promo--spotlight .catalog-promo__title {
+	font-size: 26px;
+	color: var(--color-on-dark);
+}
+
+.catalog-promo--spotlight .catalog-promo__cta {
+	margin-block-start: auto;
+	padding-block-end: 5px;
+	border-block-end: 1px solid var(--color-rose);
+	color: var(--color-on-dark);
+	transition: border-color var(--transition-base);
+}
+
+.catalog-promo--spotlight .catalog-promo__cta:hover {
+	border-block-end-color: var(--color-on-dark);
+}
+
+.catalog-promo__media {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 180px;
+}
+
+.catalog-promo__glow {
+	position: absolute;
+	inset: 10% 15%;
+	border-radius: var(--radius-pill);
+	background-color: color-mix(in srgb, var(--color-cream) 8%, transparent);
+	filter: blur(32px);
+}
+
+.catalog-promo__image {
+	position: relative;
+	width: auto;
+	max-width: 100%;
+	max-height: 240px;
+	object-fit: contain;
+	filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.25));
+}
+
+/* --------------------------------------------------------------------------
+   PROMO — gift banner
+   -------------------------------------------------------------------------- */
+
+.catalog-promo--gift {
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--space-md);
+	padding: var(--space-md);
+	/* Figma #F7F0EF — a rose-tinted wash of the page surface. */
+	background-color: color-mix(in srgb, var(--color-rose) 15%, var(--color-cream));
+}
+
+.catalog-promo--gift .catalog-promo__label {
+	color: var(--color-primary);
+}
+
+.catalog-promo--gift .catalog-promo__title {
+	font-size: 22px;
+	color: var(--color-ink);
+}
+
+.catalog-promo--gift .catalog-promo__body {
+	max-width: 52ch;
+	font-size: 14px;
+	color: var(--color-text);
+}
+
+.catalog-promo__gallery {
+	display: flex;
+	align-items: center;
+	gap: var(--space-sm);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.catalog-promo__gallery-image {
+	display: block;
+	width: auto;
+	height: 84px;
+	object-fit: contain;
+}
+
+.catalog-promo__cta--button {
+	padding: 14px 28px;
+	border-radius: var(--radius-button);
+	background-color: var(--color-primary);
+	color: var(--color-on-dark);
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	transition: background-color var(--transition-base);
+}
+
+.catalog-promo__cta--button:hover {
+	background-color: var(--color-primary-dark);
+	color: var(--color-on-dark);
+}
+
+/* --------------------------------------------------------------------------
+   EMPTY STATE
+   -------------------------------------------------------------------------- */
+
+.catalog-empty {
+	padding-block: var(--space-2xl);
+	text-align: center;
+}
+
+.catalog-empty__title {
+	margin: 0 0 var(--space-xs);
+	font-family: var(--font-heading);
+	font-style: normal;
+	font-size: 22px;
+	color: var(--color-ink);
+}
+
+.catalog-empty__text {
+	margin: 0 0 var(--space-md);
+	font-family: var(--font-body);
+	font-size: 15px;
+	color: var(--color-text);
+}
+
+/* --------------------------------------------------------------------------
+   LOAD MORE
+   -------------------------------------------------------------------------- */
+
+.catalog-more {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--space-sm);
+	padding-block-start: var(--space-xl);
+}
+
+.catalog-more__status:empty {
+	display: none;
+}
+
+.catalog-more__status {
+	margin: 0;
+	font-family: var(--font-ui);
+	font-size: 13px;
+	color: var(--color-text);
+}
+
+.catalog-more__status.is-error {
+	color: var(--color-error);
+}
+
+.catalog-more__button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 52px;
+	padding: 16px 48px;
+	border: 1px solid color-mix(in srgb, var(--color-text) 60%, transparent);
+	border-radius: var(--radius-button);
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 14px;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--color-ink);
+	text-decoration: none;
+	background: none;
+	cursor: pointer;
+	transition:
+		border-color var(--transition-base),
+		color var(--transition-base);
+}
+
+.catalog-more__button:hover {
+	border-color: var(--color-primary);
+	color: var(--color-primary-dark);
+}
+
+.catalog-more__button.is-loading {
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+/* ==========================================================================
+   >= 600px — two product columns
+
+   Not 480: two columns there left each card 204px wide, with barely 100px of
+   bottle inside the panel.
+   ========================================================================== */
+
+@media (min-width: 600px) {
+
+	.catalog-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.catalog-promo--gift {
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		padding: var(--space-md) var(--space-lg);
+	}
+}
+
+/* ==========================================================================
+   >= 768px — tablet
+   ========================================================================== */
+
+@media (min-width: 768px) {
+
+	.catalog {
+		padding-block-start: var(--space-xl);
+	}
+
+	.catalog-hero__title {
+		font-size: 40px;
+	}
+
+	.catalog-hero__intro p {
+		font-size: 17px;
+	}
+
+	.catalog-promo--spotlight {
+		flex-direction: row;
+		align-items: stretch;
+		gap: var(--space-lg);
+		padding: var(--space-xl);
+	}
+
+	.catalog-promo--spotlight .catalog-promo__text {
+		flex: 1 1 55%;
+	}
+
+	.catalog-promo__media {
+		flex: 1 1 45%;
+		min-height: 0;
+	}
+
+	.catalog-promo__image {
+		max-height: 280px;
+	}
+
+	.catalog-promo__gallery-image {
+		height: 100px;
+	}
+}
+
+/* ==========================================================================
+   >= 1024px — the drawer gives way to the horizontal bar
+   ========================================================================== */
+
+@media (min-width: 1024px) {
+
+	.catalog-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	/* Two columns of the three, as in the design. */
+	.catalog-promo--spotlight {
+		grid-column: span 2;
+	}
+
+	.catalog-filters__mobile,
+	.catalog-filters__drawer-head,
+	.catalog-filters__drawer-foot {
+		display: none;
+	}
+
+	.catalog-hero {
+		margin-bottom: var(--space-xl);
+	}
+
+	.catalog-hero__title {
+		font-size: 48px;
+	}
+
+	.catalog-hero__intro p {
+		font-size: 18px;
+		line-height: 1.625;
+	}
+
+	.catalog-promo__gallery-image {
+		height: 120px;
+	}
+}
+
+/* ==========================================================================
+   >= 1280px — the Figma desktop grid
+   ========================================================================== */
+
+@media (min-width: 1280px) {
+
+	.catalog-grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+
+	.catalog-card__title {
+		font-size: 24px;
+		line-height: 1.25;
+	}
+
+	.catalog-promo--spotlight {
+		padding: var(--space-2xl) var(--space-xl);
+	}
+
+	.catalog-promo--spotlight .catalog-promo__title {
+		font-size: 32px;
+	}
+
+	.catalog-promo--gift {
+		padding: var(--space-lg) 40px;
+	}
+}
+
+/* ==========================================================================
+   < 1024px — the filter panel becomes a drawer
+   ========================================================================== */
+
+@media (max-width: 1023px) {
+
+	.catalog-filters__panel {
+		position: fixed;
+		inset-block: 0;
+		inset-inline-end: 0;
+		z-index: 120;
+		display: flex;
+		flex-direction: column;
+		width: min(420px, 100%);
+		padding-block-start: 0;
+		border-block-start: 0;
+		background-color: var(--color-cream);
+		box-shadow: var(--shadow-xl);
+		transform: translateX(100%);
+		visibility: hidden;
+		transition:
+			transform var(--transition-base),
+			visibility var(--transition-base);
+	}
+
+	/*
+	 * visibility flips instantly on the way in — a transitioned visibility is
+	 * still `hidden` on the frame the drawer opens, which makes the first
+	 * control unfocusable and drops the focus move on the floor.
+	 */
+	.catalog-filters__panel.is-open {
+		transform: translateX(0);
+		visibility: visible;
+		transition:
+			transform var(--transition-base),
+			visibility 0s;
+	}
+
+	.catalog-filters__drawer-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-sm);
+		padding: var(--space-md);
+		border-block-end: 1px solid var(--color-surface-mid);
+	}
+
+	.catalog-filters__drawer-title {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-style: normal;
+		font-size: 20px;
+		color: var(--color-ink);
+	}
+
+	.catalog-filters__drawer-close {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 44px;
+		height: 44px;
+		border: 0;
+		border-radius: var(--radius-button);
+		background: none;
+		color: var(--color-ink);
+		cursor: pointer;
+	}
+
+	.catalog-filters__scroll {
+		flex: 1 1 auto;
+		overflow-y: auto;
+		padding: var(--space-md);
+		-webkit-overflow-scrolling: touch;
+	}
+
+	/*
+	 * In the drawer every group is open at once as an accordion-style list —
+	 * the dropdown row is a desktop affordance.
+	 */
+	.catalog-filters__bar {
+		display: none;
+	}
+
+	.catalog-filters__group[hidden] {
+		display: block;
+	}
+
+	.catalog-filters__drawer-foot {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-sm);
+		padding: var(--space-md);
+		border-block-start: 1px solid var(--color-surface-mid);
+	}
+
+	.catalog-filters__drawer-clear {
+		font-family: var(--font-ui);
+		font-weight: 700;
+		font-size: 13px;
+		color: var(--color-primary);
+		text-decoration: underline;
+	}
+
+	.catalog-filters__drawer-apply {
+		flex: 1 1 auto;
+		min-height: 48px;
+		padding: 12px 24px;
+		border: 0;
+		border-radius: var(--radius-button);
+		background-color: var(--color-primary);
+		color: var(--color-on-dark);
+		font-family: var(--font-ui);
+		font-weight: 600;
+		font-size: 14px;
+		cursor: pointer;
+	}
+
+	.catalog-filters__backdrop {
+		position: fixed;
+		inset: 0;
+		z-index: 119;
+		background-color: color-mix(in srgb, var(--color-ink) 45%, transparent);
+		opacity: 0;
+		visibility: hidden;
+		transition:
+			opacity var(--transition-base),
+			visibility var(--transition-base);
+	}
+
+	.catalog-filters__backdrop.is-open {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	/* The active-filter row keeps the sort control reachable above the grid. */
+	.catalog-filters__active {
+		border-block-start: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.catalog-filters__panel,
+	.catalog-filters__backdrop,
+	.catalog-filters__dropdown svg {
+		transition: none;
+	}
+}
