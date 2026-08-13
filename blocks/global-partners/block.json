@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "avallone/global-partners",
+	"title": "Avallone – Globaalsed partnerid",
+	"description": "Partnerite logode ruudustik, mis kasutab olemasolevaid brändide andmeid.",
+	"category": "avallone",
+	"icon": "grid-view",
+	"keywords": ["partnerid", "partners", "brändid", "logod"],
+	"textdomain": "avallone",
+	"supports": {
+		"align": false,
+		"anchor": false,
+		"html": false,
+		"customClassName": false,
+		"multiple": true,
+		"reusable": true
+	},
+	"style": "file:./style.css",
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "render.php"
+	}
+}

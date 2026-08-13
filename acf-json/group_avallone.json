@@ -1595,6 +1595,468 @@
             "ui_on_text": "Jah",
             "ui_off_text": "Ei",
             "message": ""
+        },
+        {
+            "key": "field_avallone_pagebanner_image",
+            "label": "Taustapilt",
+            "name": "pagebanner_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Vali suur horisontaalne taustapilt.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_avallone_pagebanner_badge",
+            "label": "Märgis",
+            "name": "pagebanner_badge",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Valikuline väike silt pealkirja kohal, nt „Est. 1994“.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "maxlength": 40,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_pagebanner_title",
+            "label": "Pealkiri",
+            "name": "pagebanner_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Lehe peapealkiri.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_pagebanner_text",
+            "label": "Tekst",
+            "name": "pagebanner_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Lühike tutvustav lõik pealkirja all.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "new_lines": "",
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_avallone_about_label",
+            "label": "Märgis",
+            "name": "about_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Väike silt pealkirja kohal.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "maxlength": 60,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_about_title",
+            "label": "Pealkiri",
+            "name": "about_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_about_text",
+            "label": "Tekst",
+            "name": "about_text",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Tutvustav sisu. Kirjuta tavalisi lõike.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "tabs": "visual",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0,
+            "default_value": ""
+        },
+        {
+            "key": "field_avallone_about_cards",
+            "label": "Teenused \/ tugevused",
+            "name": "about_cards",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Kuni 2 kaarti kõrval veerus.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "min": 0,
+            "max": 2,
+            "button_label": "Lisa kaart",
+            "rows_per_page": 20,
+            "collapsed": "",
+            "sub_fields": [
+                {
+                    "key": "field_avallone_about_card_icon",
+                    "label": "Ikoon",
+                    "name": "icon",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "award": "Auhind",
+                        "graduation-cap": "Koolitus",
+                        "network": "Võrgustik",
+                        "globe": "Maakera",
+                        "wine": "Veiniklaas",
+                        "grape": "Viinamari",
+                        "package": "Pakend",
+                        "sparkle": "Sära",
+                        "heart": "Süda",
+                        "map-pin": "Asukoht"
+                    },
+                    "default_value": "award",
+                    "allow_null": 0,
+                    "ui": 1,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "create_options": 0,
+                    "save_options": 0,
+                    "parent_repeater": "field_avallone_about_cards"
+                },
+                {
+                    "key": "field_avallone_about_card_title",
+                    "label": "Pealkiri",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_avallone_about_cards"
+                },
+                {
+                    "key": "field_avallone_about_card_text",
+                    "label": "Kirjeldus",
+                    "name": "text",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 3,
+                    "new_lines": "",
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_avallone_about_cards"
+                }
+            ]
+        },
+        {
+            "key": "field_avallone_partners_title",
+            "label": "Pealkiri",
+            "name": "partners_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_partners_text",
+            "label": "Tekst",
+            "name": "partners_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "new_lines": "",
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_avallone_partners_terms",
+            "label": "Partnerid",
+            "name": "partners_terms",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "Otsi ja vali brände. Logo tuleb brändi enda andmetest — sama logo ei pea uuesti üles laadima.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "product_brand",
+            "field_type": "multi_select",
+            "add_term": 0,
+            "save_terms": 0,
+            "load_terms": 0,
+            "return_format": "id",
+            "multiple": 0,
+            "allow_null": 1,
+            "ui": 1,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_avallone_presence_title",
+            "label": "Pealkiri",
+            "name": "presence_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_presence_text",
+            "label": "Tekst",
+            "name": "presence_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "new_lines": "",
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_avallone_presence_hours_label",
+            "label": "Lahtiolekuaegade märgis",
+            "name": "presence_hours_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Valikuline, nt „Lahtiolekuajad“.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "40",
+                "class": "",
+                "id": ""
+            },
+            "maxlength": 40,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_presence_hours",
+            "label": "Lahtiolekuajad",
+            "name": "presence_hours",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "nt „E–R 10.00 – 17.00“.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "60",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_avallone_presence_address",
+            "label": "Aadress",
+            "name": "presence_address",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "new_lines": "br",
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_avallone_presence_image_1",
+            "label": "Pilt 1",
+            "name": "presence_image_1",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_avallone_presence_image_2",
+            "label": "Pilt 2",
+            "name": "presence_image_2",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
         }
     ],
     "location": [
@@ -1618,6 +2080,34 @@
                 "operator": "==",
                 "value": "product_brand"
             }
+        ],
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "avallone\/page-banner"
+            }
+        ],
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "avallone\/about-company"
+            }
+        ],
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "avallone\/global-partners"
+            }
+        ],
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "avallone\/our-presence"
+            }
         ]
     ],
     "menu_order": 0,
@@ -1636,6 +2126,6 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1786564203,
+    "modified": 1786624655,
     "local_file": "\/var\/www\/html\/avallone-veeb\/wp-content\/themes\/avallone\/acf-json\/group_avallone.json"
 }

@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "avallone/our-presence",
+	"title": "Avallone – Meie asukoht",
+	"description": "Asukoht, lahtiolekuajad ja aadress koos kahe pildiga.",
+	"category": "avallone",
+	"icon": "location",
+	"keywords": ["asukoht", "presence", "kontakt", "lahtiolekuajad"],
+	"textdomain": "avallone",
+	"supports": {
+		"align": false,
+		"anchor": false,
+		"html": false,
+		"customClassName": false,
+		"multiple": true,
+		"reusable": true
+	},
+	"style": "file:./style.css",
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "render.php"
+	}
+}

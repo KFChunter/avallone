@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "avallone/about-company",
+	"title": "Avallone – Ettevõttest",
+	"description": "Tutvustav tekstiplokk koos teenuste või tugevuste kaartidega.",
+	"category": "avallone",
+	"icon": "info",
+	"keywords": ["ettevõttest", "about", "tutvustus", "teenused"],
+	"textdomain": "avallone",
+	"supports": {
+		"align": false,
+		"anchor": false,
+		"html": false,
+		"customClassName": false,
+		"multiple": true,
+		"reusable": true
+	},
+	"style": "file:./style.css",
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "render.php"
+	}
+}

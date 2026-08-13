@@ -1,0 +1,152 @@
+/* ==========================================================================
+   BLOCK — Lehe bänner
+   --------------------------------------------------------------------------
+   Full-width page hero. Loaded only on pages that use the block, and in the
+   editor, via block.json.
+
+   The overlay follows the supplied design source rather than the UI final
+   frame, at the client's direction: UI final shows dark text on a bare light
+   photograph, which depends entirely on the editor choosing a light image. A
+   graded scrim with light type keeps the block legible whatever image it is
+   given, which matters for a block meant to be reused. Its stops are derived
+   from --color-ink rather than hardcoded blacks.
+   ========================================================================== */
+
+.page-banner {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* Keeps the background layer inside the block's own stacking context. */
+	isolation: isolate;
+	overflow: hidden;
+	min-height: 420px;
+	padding-block: var(--space-2xl);
+	background-color: var(--color-surface-light);
+}
+
+.page-banner__bg {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+}
+
+.page-banner__image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	/* The design crops slightly above centre so the horizon sits high. */
+	object-position: center 40%;
+}
+
+.page-banner__bg::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(
+		180deg,
+		color-mix(in srgb, var(--color-ink) 8%, transparent) 0%,
+		color-mix(in srgb, var(--color-ink) 32%, transparent) 60%,
+		color-mix(in srgb, var(--color-ink) 52%, transparent) 100%
+	);
+}
+
+.page-banner__inner {
+	width: 100%;
+	max-width: var(--max-width);
+	margin-inline: auto;
+	padding-inline: var(--page-gutter);
+	text-align: center;
+	color: var(--color-on-dark);
+}
+
+.page-banner__badge {
+	display: inline-block;
+	margin: 0 0 var(--space-sm);
+	padding: 5px 14px;
+	border: 1px solid color-mix(in srgb, var(--color-on-dark) 50%, transparent);
+	border-radius: var(--radius-sm);
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 11px;
+	line-height: 16px;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--color-on-dark);
+}
+
+/* Block-specific display size; the global heading scale is untouched. */
+.page-banner__title {
+	max-width: 18ch;
+	margin: 0 auto var(--space-sm);
+	font-family: var(--font-heading);
+	font-style: normal;
+	font-weight: 400;
+	font-size: 34px;
+	line-height: 1.15;
+	color: var(--color-on-dark);
+}
+
+.page-banner__text {
+	max-width: 56ch;
+	margin: 0 auto;
+	font-family: var(--font-ui);
+	font-size: 15px;
+	line-height: 1.7;
+	color: color-mix(in srgb, var(--color-on-dark) 88%, transparent);
+}
+
+/* Editor-only: an empty block still needs to be visible and selectable. */
+.page-banner__placeholder {
+	margin: 0;
+	font-family: var(--font-ui);
+	font-size: 14px;
+	color: var(--color-text);
+}
+
+.page-banner.is-editor-preview:not(:has(.page-banner__image)) {
+	min-height: 240px;
+	background-color: var(--color-surface-light);
+}
+
+.page-banner.is-editor-preview:not(:has(.page-banner__image)) .page-banner__bg::after {
+	background: none;
+}
+
+@media (min-width: 768px) {
+
+	.page-banner {
+		min-height: 480px;
+	}
+
+	.page-banner__title {
+		font-size: 42px;
+	}
+
+	.page-banner__text {
+		font-size: 16px;
+	}
+}
+
+@media (min-width: 1024px) {
+
+	.page-banner {
+		min-height: 560px;
+	}
+
+	.page-banner__title {
+		font-size: 48px;
+	}
+}
+
+/* The design's full desktop stage. */
+@media (min-width: 1280px) {
+
+	.page-banner {
+		min-height: 634px;
+	}
+
+	.page-banner__title {
+		font-size: 52px;
+	}
+}

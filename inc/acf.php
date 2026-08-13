@@ -87,8 +87,55 @@ function avallone_acf_field_contexts() {
 		// WooCommerce screens.
 		'field_avallone_product_'  => array( 'product' ),
 		'field_avallone_brand_'    => array( 'brand_term' ),
+
+		/*
+		 * Blocks. Their fields belong to the block being edited and never to the
+		 * page-level metabox, which is what keeps an ordinary Page showing only
+		 * "Lehe seaded".
+		 */
+		'field_avallone_pagebanner_' => array( 'block:avallone/page-banner' ),
+		'field_avallone_about_'      => array( 'block:avallone/about-company' ),
+		'field_avallone_partners_'   => array( 'block:avallone/global-partners' ),
+		'field_avallone_presence_'   => array( 'block:avallone/our-presence' ),
 	);
 }
+
+/**
+ * Remember which block ACF is currently collecting fields for.
+ *
+ * ACF asks its block location rule to match immediately before it gathers a
+ * block's fields, and hands the rule the block name. Recording it there means
+ * the name comes from ACF's own flow rather than from guessing at the request.
+ *
+ * @param string|null $name Block name to record, or null to read.
+ * @return string
+ */
+function avallone_acf_current_block( $name = null ) {
+	static $current = '';
+
+	if ( null !== $name ) {
+		$current = (string) $name;
+	}
+
+	return $current;
+}
+
+/**
+ * Record the block name as ACF matches its location rule.
+ *
+ * @param bool  $result Match result.
+ * @param array $rule   The location rule.
+ * @param array $screen Screen args, carrying the block name.
+ * @return bool Unmodified result.
+ */
+function avallone_acf_note_block_rule( $result, $rule, $screen ) {
+	if ( ! empty( $screen['block'] ) ) {
+		avallone_acf_current_block( $screen['block'] );
+	}
+
+	return $result;
+}
+add_filter( 'acf/location/match_rule/type=block', 'avallone_acf_note_block_rule', 10, 3 );
 
 /**
  * The post being edited, including on a brand new Page.
@@ -158,9 +205,28 @@ function avallone_acf_current_page_template( $post_id ) {
  * interfere, and 'other' for anything unrecognised — which the whitelist treats
  * as "show none of our fields".
  *
- * @return string front_page|catalog_vein|ordinary_page|product|brand_term|acf|other
+ * @return string front_page|catalog_vein|ordinary_page|product|brand_term|
+ *                block:<block-name>|acf|other
  */
 function avallone_acf_current_context() {
+	/*
+	 * Block fields first. ACF renders them against a post_id of block_<id>, so
+	 * that prefix is a precise signal that it is a block form being built and
+	 * not the page metabox — which matters because both happen on a post edit
+	 * screen.
+	 */
+	if ( function_exists( 'acf_get_form_data' ) ) {
+		$form_post_id = acf_get_form_data( 'post_id' );
+
+		if ( is_string( $form_post_id ) && 0 === strpos( $form_post_id, 'block_' ) ) {
+			$block = avallone_acf_current_block();
+
+			if ( '' !== $block ) {
+				return 'block:' . $block;
+			}
+		}
+	}
+
 	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
 
 	// ACF's own editors render our field definitions; never filter those.

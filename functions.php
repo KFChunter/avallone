@@ -31,4 +31,5 @@ require_once AVALLONE_DIR . '/inc/newsletter.php';
 require_once AVALLONE_DIR . '/inc/catalog.php';
 require_once AVALLONE_DIR . '/inc/catalog-vein.php';
 require_once AVALLONE_DIR . '/inc/product.php';
+require_once AVALLONE_DIR . '/inc/blocks.php';
 require_once AVALLONE_DIR . '/inc/woocommerce.php';

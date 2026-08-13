@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "avallone/page-banner",
+	"title": "Avallone – Lehe bänner",
+	"description": "Suur taustapildiga bänner lehe päises. Sisaldab lehe peapealkirja.",
+	"category": "avallone",
+	"icon": "cover-image",
+	"keywords": ["bänner", "banner", "hero", "päis", "pealkiri"],
+	"textdomain": "avallone",
+	"supports": {
+		"align": false,
+		"anchor": false,
+		"html": false,
+		"customClassName": false,
+		"multiple": true,
+		"reusable": true
+	},
+	"style": "file:./style.css",
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "render.php"
+	}
+}
