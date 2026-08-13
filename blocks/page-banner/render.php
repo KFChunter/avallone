@@ -29,10 +29,21 @@ if ( $avallone_empty && ! $avallone_preview ) {
 }
 
 $avallone_heading_id = avallone_block_id( $block, 'title' );
+
+/*
+ * Without a photograph there is nothing for the scrim to darken, and light type
+ * on the pale surface would be unreadable. The modifier drops the scrim and
+ * switches the type to ink.
+ */
+$avallone_classes = avallone_block_classes( $block, 'page-banner' );
+
+if ( ! $avallone_image ) {
+	$avallone_classes .= ' page-banner--plain';
+}
 ?>
 
 <section
-	class="<?php echo esc_attr( avallone_block_classes( $block, 'page-banner' ) ); ?>"
+	class="<?php echo esc_attr( $avallone_classes ); ?>"
 	<?php if ( '' !== $avallone_title ) : ?>
 		aria-labelledby="<?php echo esc_attr( $avallone_heading_id ); ?>"
 	<?php endif; ?>

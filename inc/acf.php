@@ -101,11 +101,41 @@ function avallone_acf_field_contexts() {
 }
 
 /**
- * Remember which block ACF is currently collecting fields for.
+ * The block ACF is currently building a form for, or '' for none.
  *
- * ACF asks its block location rule to match immediately before it gathers a
- * block's fields, and hands the rule the block name. Recording it there means
- * the name comes from ACF's own flow rather than from guessing at the request.
+ * ACF fetches a block's inspector fields over AJAX and sends the block with the
+ * request — but sends the *hosting page's* ID as the post ID, and no form data
+ * at all. So the block has to be read from the request: inferring it from the
+ * post would resolve every block on a Page to that Page's own context.
+ *
+ * @return string Block name, e.g. avallone/page-banner.
+ */
+function avallone_acf_block_context() {
+	// phpcs:ignore WordPress.Security.NonceVerification -- Read-only screen check.
+	if ( ! isset( $_REQUEST['block'] ) ) {
+		return '';
+	}
+
+	// phpcs:ignore WordPress.Security.NonceVerification
+	$block = json_decode( (string) wp_unslash( $_REQUEST['block'] ), true );
+
+	if ( is_array( $block ) && ! empty( $block['name'] ) ) {
+		return (string) $block['name'];
+	}
+
+	/*
+	 * The request said "block" but did not parse. ACF also hands the name to its
+	 * block location rule, which runs just before the fields are gathered, so
+	 * that is a safe second reading — and it can only be reached inside a block
+	 * request, never while the page metabox is being built.
+	 */
+	return avallone_acf_current_block();
+}
+
+/**
+ * Remember which block ACF matched its block location rule against.
+ *
+ * A fallback for avallone_acf_block_context(); see the note there.
  *
  * @param string|null $name Block name to record, or null to read.
  * @return string
@@ -210,21 +240,14 @@ function avallone_acf_current_page_template( $post_id ) {
  */
 function avallone_acf_current_context() {
 	/*
-	 * Block fields first. ACF renders them against a post_id of block_<id>, so
-	 * that prefix is a precise signal that it is a block form being built and
-	 * not the page metabox — which matters because both happen on a post edit
-	 * screen.
+	 * Block fields first, and before any post lookup: a block form's request
+	 * carries the hosting page's ID, so resolving the post would send every
+	 * block on a Page to that Page's context and hide the block's own fields.
 	 */
-	if ( function_exists( 'acf_get_form_data' ) ) {
-		$form_post_id = acf_get_form_data( 'post_id' );
+	$block = avallone_acf_block_context();
 
-		if ( is_string( $form_post_id ) && 0 === strpos( $form_post_id, 'block_' ) ) {
-			$block = avallone_acf_current_block();
-
-			if ( '' !== $block ) {
-				return 'block:' . $block;
-			}
-		}
+	if ( '' !== $block ) {
+		return 'block:' . $block;
 	}
 
 	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;

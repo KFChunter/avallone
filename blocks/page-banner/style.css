@@ -104,15 +104,6 @@
 	color: var(--color-text);
 }
 
-.page-banner.is-editor-preview:not(:has(.page-banner__image)) {
-	min-height: 240px;
-	background-color: var(--color-surface-light);
-}
-
-.page-banner.is-editor-preview:not(:has(.page-banner__image)) .page-banner__bg::after {
-	background: none;
-}
-
 @media (min-width: 768px) {
 
 	.page-banner {
@@ -149,4 +140,39 @@
 	.page-banner__title {
 		font-size: 52px;
 	}
+}
+
+/* --------------------------------------------------------------------------
+   NO BACKGROUND IMAGE
+   --------------------------------------------------------------------------
+   The scrim exists to hold type off a photograph. With no photograph it would
+   only muddy the surface, and light type on it would be unreadable — so the
+   banner falls back to ink on the light surface.
+   -------------------------------------------------------------------------- */
+
+.page-banner--plain {
+	min-height: 320px;
+}
+
+.page-banner--plain .page-banner__bg::after {
+	background: none;
+}
+
+.page-banner--plain .page-banner__inner,
+.page-banner--plain .page-banner__title {
+	color: var(--color-ink);
+}
+
+.page-banner--plain .page-banner__badge {
+	border-color: color-mix(in srgb, var(--color-primary-dark) 40%, transparent);
+	color: var(--color-primary-dark);
+}
+
+.page-banner--plain .page-banner__text {
+	color: var(--color-text);
+}
+
+/* An empty block in the editor only needs enough room to be selectable. */
+.page-banner--plain.is-editor-preview:not(:has(.page-banner__title)) {
+	min-height: 240px;
 }
