@@ -3,10 +3,10 @@
 	"apiVersion": 3,
 	"name": "avallone/our-presence",
 	"title": "Avallone – Meie asukoht",
-	"description": "Asukoht, lahtiolekuajad ja aadress koos kahe pildiga.",
+	"description": "Lahtiolekuajad, aadress ja pildid esinduspoest.",
 	"category": "avallone",
 	"icon": "location",
-	"keywords": ["asukoht", "presence", "kontakt", "lahtiolekuajad"],
+	"keywords": ["asukoht", "kontakt", "lahtiolekuajad", "pood"],
 	"textdomain": "avallone",
 	"supports": {
 		"align": false,

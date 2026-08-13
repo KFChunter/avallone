@@ -1,1 +1,138 @@
-/* placeholder */
+/* ==========================================================================
+   BLOCK — Meie asukoht
+   --------------------------------------------------------------------------
+   Editorial column with visiting details, beside a pair of interior photographs.
+   Loaded only on pages using the block.
+   ========================================================================== */
+
+.our-presence {
+	padding-block: var(--space-2xl);
+	background-color: var(--color-cream);
+}
+
+.our-presence__inner {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-xl);
+	align-items: start;
+}
+
+/* --------------------------------------------------------------------------
+   EDITORIAL COLUMN
+   -------------------------------------------------------------------------- */
+
+/* Block-specific display size; the global heading scale is untouched. */
+.our-presence__title {
+	margin: 0 0 var(--space-md);
+	font-family: var(--font-heading);
+	font-style: normal;
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 1.2;
+	color: var(--color-ink);
+}
+
+.our-presence__text {
+	margin: 0;
+	font-family: var(--font-ui);
+	font-size: 15px;
+	line-height: 1.7;
+	color: var(--color-text);
+}
+
+/* The design separates the visiting details with a rule across the column. */
+.our-presence__details {
+	margin-top: var(--space-lg);
+	padding-top: var(--space-md);
+	border-top: 1px solid color-mix(in srgb, var(--color-rose) 55%, transparent);
+}
+
+.our-presence__hours-label {
+	margin: 0;
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 11px;
+	line-height: 16px;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--color-primary-dark);
+}
+
+.our-presence__hours {
+	margin: var(--space-sm) 0 0;
+	font-family: var(--font-heading);
+	font-style: normal;
+	font-weight: 400;
+	font-size: 24px;
+	line-height: 1.2;
+	color: var(--color-ink);
+}
+
+/* address defaults to italic in every engine; this one is set upright. */
+.our-presence__address {
+	margin: var(--space-xs) 0 0;
+	font-family: var(--font-ui);
+	font-style: normal;
+	font-size: 15px;
+	line-height: 1.7;
+	color: var(--color-text);
+}
+
+/* --------------------------------------------------------------------------
+   MEDIA
+   -------------------------------------------------------------------------- */
+
+.our-presence__media {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--space-md);
+}
+
+.our-presence__media--single {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+.our-presence__image {
+	display: block;
+	width: 100%;
+	height: 100%;
+	aspect-ratio: 3 / 4;
+
+	/*
+	 * cover, not contain: these are environmental photographs, and the pair
+	 * must share one height whatever the originals' proportions.
+	 */
+	object-fit: cover;
+	border-radius: var(--radius-sm);
+}
+
+/* Editor-only: an empty block still needs to be visible and selectable. */
+.our-presence__placeholder {
+	margin: 0;
+	font-family: var(--font-ui);
+	font-size: 14px;
+	color: var(--color-text);
+}
+
+@media (min-width: 768px) {
+
+	.our-presence__title {
+		font-size: 30px;
+	}
+}
+
+/* ==========================================================================
+   >= 1024px — the design's two-column composition
+   ========================================================================== */
+
+@media (min-width: 1024px) {
+
+	.our-presence__inner {
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-2xl);
+	}
+
+	.our-presence__title {
+		font-size: 32px;
+	}
+}
