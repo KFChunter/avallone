@@ -3,10 +3,10 @@
 	"apiVersion": 3,
 	"name": "avallone/global-partners",
 	"title": "Avallone – Globaalsed partnerid",
-	"description": "Partnerite logode ruudustik, mis kasutab olemasolevaid brändide andmeid.",
+	"description": "Partnerbrändide logovõrgustik, mis kasutab olemasolevaid brändi termineid.",
 	"category": "avallone",
 	"icon": "grid-view",
-	"keywords": ["partnerid", "partners", "brändid", "logod"],
+	"keywords": ["partnerid", "brändid", "logod", "partners"],
 	"textdomain": "avallone",
 	"supports": {
 		"align": false,

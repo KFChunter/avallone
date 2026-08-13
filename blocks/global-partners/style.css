@@ -1,1 +1,123 @@
-/* placeholder */
+/* ==========================================================================
+   BLOCK — Globaalsed partnerid
+   --------------------------------------------------------------------------
+   A grid of bordered cells, each holding one partner wordmark. The design
+   renders this band on white between two cream bands; the difference is three
+   values per channel, so it stays on the page background and the CVI's ban on
+   raw white is respected. Loaded only on pages using the block.
+   ========================================================================== */
+
+.global-partners {
+	padding-block: var(--space-2xl);
+	background-color: var(--color-cream);
+}
+
+.global-partners__head {
+	margin-bottom: var(--space-lg);
+}
+
+/* Block-specific display size; the global heading scale is untouched. */
+.global-partners__title {
+	margin: 0;
+	font-family: var(--font-heading);
+	font-style: normal;
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 1.2;
+	color: var(--color-ink);
+}
+
+.global-partners__text {
+	margin: var(--space-xs) 0 0;
+	font-family: var(--font-ui);
+	font-size: 15px;
+	line-height: 1.7;
+	color: var(--color-text);
+}
+
+/* --------------------------------------------------------------------------
+   GRID
+   -------------------------------------------------------------------------- */
+
+.global-partners__grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--space-md);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.global-partners__item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	/* Square cells, as measured; the mark is centred whatever its shape. */
+	aspect-ratio: 1;
+	padding: var(--space-sm);
+	border: 1px solid color-mix(in srgb, var(--color-rose) 55%, transparent);
+	border-radius: var(--radius-sm);
+}
+
+/*
+ * contain, never cover: a partner's wordmark must not be cropped, and the
+ * marks vary from square crests to wide lettering.
+ */
+.global-partners__logo {
+	width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+}
+
+/* Fallback for a brand term that has no logo attachment yet. */
+.global-partners__name {
+	font-family: var(--font-heading);
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.3;
+	text-align: center;
+	color: var(--color-text);
+}
+
+/* Editor-only: an empty block still needs to be visible and selectable. */
+.global-partners__placeholder {
+	margin: 0;
+	font-family: var(--font-ui);
+	font-size: 14px;
+	color: var(--color-text);
+}
+
+@media (min-width: 768px) {
+
+	.global-partners__title {
+		font-size: 30px;
+	}
+
+	.global-partners__grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1024px) {
+
+	.global-partners__title {
+		font-size: 32px;
+	}
+
+	.global-partners__grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+/* ==========================================================================
+   >= 1280px — the design's six-across row
+   ========================================================================== */
+
+@media (min-width: 1280px) {
+
+	.global-partners__grid {
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+	}
+}

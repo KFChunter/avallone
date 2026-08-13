@@ -1,1 +1,152 @@
-/* placeholder */
+/* ==========================================================================
+   BLOCK — Ettevõttest
+   --------------------------------------------------------------------------
+   Editorial column beside service cards. Loaded only on pages using the block.
+   ========================================================================== */
+
+.about-company {
+	padding-block: var(--space-2xl);
+	background-color: var(--color-cream);
+}
+
+.about-company__inner {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-xl);
+	align-items: start;
+}
+
+/* --------------------------------------------------------------------------
+   EDITORIAL COLUMN
+   -------------------------------------------------------------------------- */
+
+/* The design prefixes the label with a short rule. */
+.about-company__label {
+	display: flex;
+	align-items: center;
+	gap: var(--space-sm);
+	margin: 0 0 var(--space-md);
+	font-family: var(--font-ui);
+	font-weight: 600;
+	font-size: 11px;
+	line-height: 16px;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--color-primary-dark);
+}
+
+.about-company__label::before {
+	content: '';
+	flex-shrink: 0;
+	width: 28px;
+	height: 2px;
+	background-color: var(--color-primary-dark);
+}
+
+/* Block-specific display size; the global heading scale is untouched. */
+.about-company__title {
+	margin: 0 0 var(--space-md);
+	font-family: var(--font-heading);
+	font-style: normal;
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 1.2;
+	color: var(--color-ink);
+}
+
+.about-company__text p {
+	margin: 0;
+	font-family: var(--font-ui);
+	font-size: 15px;
+	line-height: 1.8;
+	color: var(--color-text);
+}
+
+.about-company__text p + p {
+	margin-block-start: var(--space-sm);
+}
+
+.about-company__text a {
+	color: var(--color-primary);
+	text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   CARDS
+   -------------------------------------------------------------------------- */
+
+.about-company__cards {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.about-company__card {
+	padding: 28px;
+	border: 1px solid color-mix(in srgb, var(--color-rose) 55%, transparent);
+	border-radius: var(--radius-sm);
+	background-color: var(--color-surface-light);
+	transition: box-shadow var(--transition-base);
+}
+
+.about-company__card:hover {
+	box-shadow: var(--shadow-md);
+}
+
+.about-company__card-icon {
+	display: block;
+	margin-bottom: var(--space-sm);
+	color: var(--color-primary-dark);
+}
+
+.about-company__card-title {
+	margin: 0 0 var(--space-xs);
+	font-family: var(--font-heading);
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 1.3;
+	color: var(--color-ink);
+}
+
+.about-company__card-text {
+	margin: 0;
+	font-family: var(--font-ui);
+	font-size: 14px;
+	line-height: 1.7;
+	color: var(--color-text);
+}
+
+/* Editor-only: an empty block still needs to be visible and selectable. */
+.about-company__placeholder {
+	margin: 0;
+	font-family: var(--font-ui);
+	font-size: 14px;
+	color: var(--color-text);
+}
+
+@media (min-width: 768px) {
+
+	.about-company__title {
+		font-size: 30px;
+	}
+}
+
+/* ==========================================================================
+   >= 1024px — the design's two-column composition
+   ========================================================================== */
+
+@media (min-width: 1024px) {
+
+	.about-company__inner {
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-2xl);
+	}
+
+	.about-company__title {
+		font-size: 32px;
+	}
+}
