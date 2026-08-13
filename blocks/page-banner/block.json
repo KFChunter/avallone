@@ -3,7 +3,7 @@
 	"apiVersion": 3,
 	"name": "avallone/page-banner",
 	"title": "Avallone – Lehe bänner",
-	"description": "Suur taustapildiga bänner lehe päises. Sisaldab lehe peapealkirja.",
+	"description": "Suur taustapildiga bänner lehe päises. Sisaldab lehe peapealkirja. Tekst on tume, seega vali hele ja rahulik taustapilt.",
 	"category": "avallone",
 	"icon": "cover-image",
 	"keywords": ["bänner", "banner", "hero", "päis", "pealkiri"],

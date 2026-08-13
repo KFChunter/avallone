@@ -4,12 +4,10 @@
    Full-width page hero. Loaded only on pages that use the block, and in the
    editor, via block.json.
 
-   The overlay follows the supplied design source rather than the UI final
-   frame, at the client's direction: UI final shows dark text on a bare light
-   photograph, which depends entirely on the editor choosing a light image. A
-   graded scrim with light type keeps the block legible whatever image it is
-   given, which matters for a block meant to be reused. Its stops are derived
-   from --color-ink rather than hardcoded blacks.
+   The photograph carries no scrim, and the type sits on it in ink — measured
+   from the UI final frame, where the topmost pixel row of the image reads
+   (253, 251, 250), i.e. the untouched photograph. The block therefore expects
+   a light, low-contrast image; a dark one will not carry dark type.
    ========================================================================== */
 
 .page-banner {
@@ -20,7 +18,7 @@
 	/* Keeps the background layer inside the block's own stacking context. */
 	isolation: isolate;
 	overflow: hidden;
-	min-height: 420px;
+	min-height: 460px;
 	padding-block: var(--space-2xl);
 	background-color: var(--color-surface-light);
 }
@@ -39,61 +37,50 @@
 	object-position: center 40%;
 }
 
-.page-banner__bg::after {
-	content: '';
-	position: absolute;
-	inset: 0;
-	background: linear-gradient(
-		180deg,
-		color-mix(in srgb, var(--color-ink) 8%, transparent) 0%,
-		color-mix(in srgb, var(--color-ink) 32%, transparent) 60%,
-		color-mix(in srgb, var(--color-ink) 52%, transparent) 100%
-	);
-}
-
 .page-banner__inner {
 	width: 100%;
 	max-width: var(--max-width);
 	margin-inline: auto;
 	padding-inline: var(--page-gutter);
 	text-align: center;
-	color: var(--color-on-dark);
+	color: var(--color-ink);
 }
 
+/* Transparent, so the photograph carries through the badge as in the design. */
 .page-banner__badge {
 	display: inline-block;
-	margin: 0 0 var(--space-sm);
-	padding: 5px 14px;
-	border: 1px solid color-mix(in srgb, var(--color-on-dark) 50%, transparent);
+	margin: 0 0 var(--space-md);
+	padding: 5px var(--space-sm);
+	border: 1px solid color-mix(in srgb, var(--color-ink) 45%, transparent);
 	border-radius: var(--radius-sm);
 	font-family: var(--font-ui);
 	font-weight: 600;
-	font-size: 11px;
-	line-height: 16px;
-	letter-spacing: 0.22em;
+	font-size: 12px;
+	line-height: 18px;
+	letter-spacing: 0.18em;
 	text-transform: uppercase;
-	color: var(--color-on-dark);
+	color: var(--color-ink);
 }
 
 /* Block-specific display size; the global heading scale is untouched. */
 .page-banner__title {
-	max-width: 18ch;
-	margin: 0 auto var(--space-sm);
+	max-width: 20ch;
+	margin: 0 auto 32px;
 	font-family: var(--font-heading);
 	font-style: normal;
 	font-weight: 400;
 	font-size: 34px;
 	line-height: 1.15;
-	color: var(--color-on-dark);
+	color: var(--color-ink);
 }
 
 .page-banner__text {
-	max-width: 56ch;
+	max-width: 720px;
 	margin: 0 auto;
 	font-family: var(--font-ui);
 	font-size: 15px;
-	line-height: 1.7;
-	color: color-mix(in srgb, var(--color-on-dark) 88%, transparent);
+	line-height: 1.6;
+	color: var(--color-text);
 }
 
 /* Editor-only: an empty block still needs to be visible and selectable. */
@@ -107,11 +94,11 @@
 @media (min-width: 768px) {
 
 	.page-banner {
-		min-height: 480px;
+		min-height: 530px;
 	}
 
 	.page-banner__title {
-		font-size: 42px;
+		font-size: 38px;
 	}
 
 	.page-banner__text {
@@ -122,54 +109,40 @@
 @media (min-width: 1024px) {
 
 	.page-banner {
-		min-height: 560px;
+		min-height: 615px;
 	}
 
 	.page-banner__title {
-		font-size: 48px;
+		font-size: 42px;
+	}
+
+	.page-banner__text {
+		font-size: 18px;
 	}
 }
 
-/* The design's full desktop stage. */
+/* The design's full desktop stage, measured from the UI final frame. */
 @media (min-width: 1280px) {
 
 	.page-banner {
-		min-height: 634px;
+		min-height: 698px;
 	}
 
 	.page-banner__title {
-		font-size: 52px;
+		font-size: 46px;
 	}
 }
 
 /* --------------------------------------------------------------------------
    NO BACKGROUND IMAGE
    --------------------------------------------------------------------------
-   The scrim exists to hold type off a photograph. With no photograph it would
-   only muddy the surface, and light type on it would be unreadable — so the
-   banner falls back to ink on the light surface.
+   The type is already ink on a light surface, so the empty state needs no
+   colour of its own — only to stop reserving a photograph's worth of height
+   for text alone.
    -------------------------------------------------------------------------- */
 
 .page-banner--plain {
 	min-height: 320px;
-}
-
-.page-banner--plain .page-banner__bg::after {
-	background: none;
-}
-
-.page-banner--plain .page-banner__inner,
-.page-banner--plain .page-banner__title {
-	color: var(--color-ink);
-}
-
-.page-banner--plain .page-banner__badge {
-	border-color: color-mix(in srgb, var(--color-primary-dark) 40%, transparent);
-	color: var(--color-primary-dark);
-}
-
-.page-banner--plain .page-banner__text {
-	color: var(--color-text);
 }
 
 /* An empty block in the editor only needs enough room to be selectable. */
