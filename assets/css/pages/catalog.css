@@ -70,8 +70,9 @@
    horizontal bar above it render the same markup, restyled.
    -------------------------------------------------------------------------- */
 
+/* Measured off the Figma frame: 60px from the active-filter row to the grid. */
 .catalog-filters {
-	margin-bottom: var(--space-md);
+	margin-bottom: var(--space-lg);
 }
 
 .catalog-filters__mobile {
@@ -122,7 +123,6 @@
 
 /* The panel is an ordinary block below the bar until it becomes a drawer. */
 .catalog-filters__panel {
-	border-block-start: 1px solid var(--color-surface-mid);
 	padding-block-start: var(--space-md);
 }
 
@@ -192,12 +192,20 @@
    FILTER GROUP — the expanded panel for one filter
    -------------------------------------------------------------------------- */
 
+/*
+ * The rule sits here — between the dropdown row and the panel it opens — which
+ * is where the Figma frame puts it. Only one group is open at a time on
+ * desktop, so exactly one rule ever shows; in the drawer, where every group is
+ * listed at once, the same rule separates them.
+ */
 .catalog-filters__group {
 	margin-bottom: var(--space-md);
+	padding-block-start: var(--space-md);
+	border-block-start: 1px solid var(--color-surface-mid);
 }
 
 .catalog-filters__group-title {
-	margin: 0 0 var(--space-sm);
+	margin: 0 0 var(--space-xs);
 	font-family: var(--font-heading);
 	font-style: normal;
 	font-weight: 400;
@@ -745,6 +753,9 @@
 	flex-direction: column;
 	align-items: flex-start;
 	gap: var(--space-md);
+	/* The design sets the band slightly further off the row above than the
+	   uniform grid gap gives it. */
+	margin-block-start: var(--space-sm);
 	padding: var(--space-md);
 	background-color: var(--color-surface-rose);
 }
@@ -1095,6 +1106,16 @@
 
 	.catalog-filters__group[hidden] {
 		display: block;
+	}
+
+	/*
+	 * The bar is the first sibling even though it is hidden here, so
+	 * :first-of-type would match it rather than the first group. Targeting the
+	 * group directly after it is what actually reaches the top of the list.
+	 */
+	.catalog-filters__bar + .catalog-filters__group {
+		padding-block-start: 0;
+		border-block-start: 0;
 	}
 
 	.catalog-filters__drawer-foot {
