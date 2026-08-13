@@ -36,165 +36,227 @@ function avallone_acf_json_save_point( $path ) {
 add_filter( 'acf/settings/save_json', 'avallone_acf_json_save_point' );
 
 /**
- * Which page template each field-key prefix belongs to.
+ * Page templates that give a Page its own editing context.
  *
- * A prefix listed here is shown only on pages using that template. Adding a
- * catalogue page means adding one line.
+ * Adding a catalogue page means adding one line here and one entry to
+ * avallone_acf_field_contexts().
  *
- * @return array<string, string> Key prefix => page template slug.
+ * @return array<string, string> Template slug => context name.
  */
-function avallone_acf_template_prefixes() {
+function avallone_acf_page_template_contexts() {
 	return array(
-		'field_avallone_vein_' => 'page-templates/template-vein.php',
+		'page-templates/template-vein.php' => 'catalog_vein',
 	);
+}
+
+/**
+ * Which contexts each field-key prefix is allowed to appear in.
+ *
+ * This is a whitelist, deliberately: a prefix that is not listed is hidden
+ * everywhere rather than shown everywhere. Nothing appears on a screen unless
+ * it was explicitly granted to that screen, so an incomplete detection can
+ * never leak the homepage fields onto an ordinary Page.
+ *
+ * Contexts are those returned by avallone_acf_current_context():
+ * front_page, catalog_vein, ordinary_page, product, brand_term, other.
+ *
+ * When adding a field, add its prefix here. General settings that apply to
+ * every Page belong with 'field_avallone_page_'.
+ *
+ * @return array<string, string[]> Key prefix => allowed contexts.
+ */
+function avallone_acf_field_contexts() {
+	$homepage = array( 'front_page' );
+
+	return array(
+		// General page settings — every Page, whatever its template.
+		'field_avallone_page_'     => array( 'front_page', 'catalog_vein', 'ordinary_page' ),
+
+		// Homepage sections.
+		'field_avallone_hero_'     => $homepage,
+		'field_avallone_new_'      => $homepage,
+		'field_avallone_banner_'   => $homepage,
+		'field_avallone_deal_'     => $homepage,
+		'field_avallone_brands_'   => $homepage,
+		'field_avallone_popular_'  => $homepage,
+		'field_avallone_cocktail_' => $homepage,
+
+		// Catalogue template.
+		'field_avallone_vein_'     => array( 'catalog_vein' ),
+
+		// WooCommerce screens.
+		'field_avallone_product_'  => array( 'product' ),
+		'field_avallone_brand_'    => array( 'brand_term' ),
+	);
+}
+
+/**
+ * The post being edited, including on a brand new Page.
+ *
+ * post-new.php carries no `post` request variable — WordPress has already
+ * created the auto-draft and put it in the global $post instead. Reading only
+ * the request is what made a new Page fall through to "context unknown".
+ *
+ * @param WP_Screen|null $screen Current screen, when available.
+ * @return int
+ */
+function avallone_acf_current_post_id( $screen ) {
+	foreach ( array( 'post', 'post_ID', 'post_id' ) as $key ) {
+		// phpcs:ignore WordPress.Security.NonceVerification -- Read-only screen check.
+		if ( isset( $_REQUEST[ $key ] ) && is_numeric( $_REQUEST[ $key ] ) ) {
+			$id = (int) $_REQUEST[ $key ]; // phpcs:ignore WordPress.Security.NonceVerification
+
+			if ( $id > 0 ) {
+				return $id;
+			}
+		}
+	}
+
+	if ( $screen && 'post' === $screen->base ) {
+		$post = get_post();
+
+		if ( $post instanceof WP_Post ) {
+			return (int) $post->ID;
+		}
+	}
+
+	return 0;
+}
+
+/**
+ * The template assigned to the Page being edited.
+ *
+ * ACF re-checks the screen over AJAX when post settings change and sends the
+ * live template with it, so switching template updates the metabox without
+ * waiting for a save. Otherwise the saved value is authoritative — an unsaved
+ * Page has no template and is an ordinary Page.
+ *
+ * @param int $post_id Page ID.
+ * @return string Template slug, or '' for the default template.
+ */
+function avallone_acf_current_page_template( $post_id ) {
+	// phpcs:ignore WordPress.Security.NonceVerification -- Read-only screen check.
+	if ( isset( $_REQUEST['page_template'] ) ) {
+		// phpcs:ignore WordPress.Security.NonceVerification
+		$template = sanitize_text_field( wp_unslash( $_REQUEST['page_template'] ) );
+
+		if ( '' !== $template ) {
+			return 'default' === $template ? '' : $template;
+		}
+	}
+
+	return (string) get_page_template_slug( $post_id );
 }
 
 /**
  * Which admin screen the current request is editing.
  *
- * The single "Avallone" group loads on Pages, Products and Brand terms, so the
- * visibility filter needs to know which of those it is preparing fields for.
+ * One resolver for every screen the single "Avallone" group loads on, so the
+ * visibility rules have exactly one source of truth.
  *
- * @return array{context:string, post_id:int} Context is 'front-page', 'page',
- *         'template:<slug>', 'product', 'brand' or '' when it is none of them.
+ * Returns 'acf' for ACF's own admin screens, where this filter must not
+ * interfere, and 'other' for anything unrecognised — which the whitelist treats
+ * as "show none of our fields".
+ *
+ * @return string front_page|catalog_vein|ordinary_page|product|brand_term|acf|other
  */
 function avallone_acf_current_context() {
-	$post_id = 0;
+	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
 
-	if ( isset( $_GET['post'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only screen check.
-		$post_id = (int) $_GET['post']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-	} elseif ( isset( $_POST['post_ID'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Read-only screen check.
-		$post_id = (int) $_POST['post_ID']; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+	// ACF's own editors render our field definitions; never filter those.
+	if ( $screen && ! empty( $screen->post_type ) && 0 === strpos( $screen->post_type, 'acf-' ) ) {
+		return 'acf';
 	}
 
-	// Taxonomy term screens carry the taxonomy in the request, not a post ID.
+	// Taxonomy term screens carry a taxonomy rather than a post.
 	$taxonomy = '';
 
-	if ( isset( $_GET['taxonomy'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only screen check.
-		$taxonomy = sanitize_key( wp_unslash( $_GET['taxonomy'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-	} elseif ( isset( $_POST['taxonomy'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Read-only screen check.
-		$taxonomy = sanitize_key( wp_unslash( $_POST['taxonomy'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
-	} elseif ( function_exists( 'get_current_screen' ) ) {
-		$screen = get_current_screen();
-
-		if ( $screen && ! empty( $screen->taxonomy ) ) {
-			$taxonomy = $screen->taxonomy;
-		}
+	if ( $screen && ! empty( $screen->taxonomy ) ) {
+		$taxonomy = $screen->taxonomy;
+	} elseif ( isset( $_REQUEST['taxonomy'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+		$taxonomy = sanitize_key( wp_unslash( $_REQUEST['taxonomy'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 	}
 
 	if ( 'product_brand' === $taxonomy ) {
-		return array(
-			'context' => 'brand',
-			'post_id' => 0,
-		);
+		return 'brand_term';
 	}
 
+	if ( '' !== $taxonomy ) {
+		return 'other';
+	}
+
+	$post_id = avallone_acf_current_post_id( $screen );
+
 	if ( ! $post_id ) {
-		return array(
-			'context' => '',
-			'post_id' => 0,
-		);
+		return 'other';
 	}
 
 	$type = get_post_type( $post_id );
 
 	if ( 'product' === $type ) {
-		return array(
-			'context' => 'product',
-			'post_id' => $post_id,
-		);
+		return 'product';
 	}
 
 	if ( 'page' !== $type ) {
-		return array(
-			'context' => '',
-			'post_id' => $post_id,
-		);
+		return 'other';
 	}
 
-	if ( (int) $post_id === (int) get_option( 'page_on_front' ) ) {
-		return array(
-			'context' => 'front-page',
-			'post_id' => $post_id,
-		);
+	$front = (int) get_option( 'page_on_front' );
+
+	if ( $front && $post_id === $front ) {
+		return 'front_page';
 	}
 
-	$template = (string) get_page_template_slug( $post_id );
+	$templates = avallone_acf_page_template_contexts();
+	$template  = avallone_acf_current_page_template( $post_id );
 
-	return array(
-		'context' => $template ? 'template:' . $template : 'page',
-		'post_id' => $post_id,
-	);
+	if ( isset( $templates[ $template ] ) ) {
+		return $templates[ $template ];
+	}
+
+	// A Page with the default template — including a brand new auto-draft.
+	return 'ordinary_page';
 }
 
 /**
- * Scope the single "Avallone" group's fields to where they belong.
+ * Scope the single "Avallone" group's fields to the screen being edited.
  *
- * One group loads on every Page, on Products and on Brand terms, so that the
- * newsletter toggle stays reachable site-wide and the product and producer
- * fields live alongside the rest. Without this filter each of those screens
- * would show all of the others' fields.
+ * The group is deliberately one group loaded on Pages, Products and Brand
+ * terms, so the newsletter toggle stays reachable site-wide and the product and
+ * producer fields live alongside the rest. This filter decides which of its
+ * fields belong on the screen in front of the editor.
  *
- * The rule is the field key:
- *   - `field_avallone_page_*`     general page settings — every Page
- *   - `field_avallone_product_*`  Product editor only
- *   - `field_avallone_brand_*`    product_brand term editor only
- *   - a prefix in avallone_acf_template_prefixes() — that page template only
- *   - every other `field_avallone_*` — front page only
- *
- * Tabs are fields too, so a hidden tab takes its contents with it.
- *
- * Note that ACF renders fields server-side: after switching a page's template
- * the page must be saved once before that template's fields appear.
+ * Tabs are fields too, so a tab whose context does not match is hidden along
+ * with everything under it — the metabox shows no empty sections.
  *
  * @param array $field The field being prepared.
  * @return array|false The field, or false to hide it.
  */
-function avallone_acf_scope_homepage_fields( $field ) {
+function avallone_acf_scope_fields( $field ) {
 	if ( ! is_admin() || empty( $field['key'] ) || 0 !== strpos( $field['key'], 'field_avallone_' ) ) {
 		return $field;
 	}
 
-	$current = avallone_acf_current_context();
-	$context = $current['context'];
+	$context = avallone_acf_current_context();
 
-	// Not one of our screens — ACF's own field-group editor, for instance.
-	if ( '' === $context ) {
+	if ( 'acf' === $context ) {
 		return $field;
 	}
 
-	// Screens that own exactly one prefix show that prefix and nothing else.
-	$exclusive = array(
-		'product' => 'field_avallone_product_',
-		'brand'   => 'field_avallone_brand_',
-	);
-
-	if ( isset( $exclusive[ $context ] ) ) {
-		return 0 === strpos( $field['key'], $exclusive[ $context ] ) ? $field : false;
-	}
-
-	// From here the screen is a Page. Product and brand fields never belong.
-	foreach ( $exclusive as $prefix ) {
+	foreach ( avallone_acf_field_contexts() as $prefix => $contexts ) {
 		if ( 0 === strpos( $field['key'], $prefix ) ) {
-			return false;
+			return in_array( $context, $contexts, true ) ? $field : false;
 		}
 	}
 
-	// General page settings are reachable on every Page.
-	if ( 0 === strpos( $field['key'], 'field_avallone_page_' ) ) {
-		return $field;
-	}
-
-	foreach ( avallone_acf_template_prefixes() as $prefix => $slug ) {
-		if ( 0 === strpos( $field['key'], $prefix ) ) {
-			return 'template:' . $slug === $context ? $field : false;
-		}
-	}
-
-	// Anything left is homepage-only.
-	return 'front-page' === $context ? $field : false;
+	/*
+	 * An Avallone field whose prefix is not in the map. Hidden rather than
+	 * shown, so a forgotten entry can never leak a section onto the wrong
+	 * screen — add the prefix to avallone_acf_field_contexts().
+	 */
+	return false;
 }
-add_filter( 'acf/prepare_field', 'avallone_acf_scope_homepage_fields' );
+add_filter( 'acf/prepare_field', 'avallone_acf_scope_fields' );
 
 /**
  * Load field groups from the theme.

@@ -5,7 +5,8 @@
  * The whole Vein-specific surface of the catalogue. A future Vahuvein or Kange
  * alkohol page is a copy of this file with a different filter list, plus one
  * line in avallone_catalog_config_for_page() and one in
- * avallone_acf_template_prefixes().
+ * avallone_acf_page_template_contexts() and one in
+ * avallone_acf_field_contexts().
  *
  * It lives in an include rather than in the page template because the
  * load-more endpoint has to resolve the same configuration, and page templates
